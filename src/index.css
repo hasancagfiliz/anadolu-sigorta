@@ -1,4 +1,13 @@
 body {
     font-family: 'Nunito Sans', sans-serif;
-    font-size: 14px;
   }
+
+.MuiInputLabel-root {
+  color: rgb(26, 125, 189) !important;
+  font-weight: bold !important;
+  font-family: 'Nunito Sans', sans-serif !important;
+}
+
+.MuiInputBase-root {
+  height: 46px;
+}
