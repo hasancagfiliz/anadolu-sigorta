@@ -11,3 +11,15 @@ body {
 .MuiInputBase-root {
   height: 46px;
 }
+
+.MuiTableCell-root {
+  font-family: 'Nunito Sans', sans-serif !important;
+}
+
+.MuiTableCell-head {
+  font-weight: bold !important;
+}
+
+.MuiTableCell-body {
+  color: #0f2052 !important;
+}

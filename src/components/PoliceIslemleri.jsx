@@ -1,6 +1,112 @@
-import React, { useState } from 'react';
-import { TextField, Button, Container, Grid, Box, MenuItem, InputLabel, Select, FormControl, FormControlLabel, Checkbox, Link, Typography, Autocomplete} from '@mui/material';
+import React from 'react';
+import { Container, Box, Typography, Button, Radio, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
+
+const data = [
+    { label: 'Maddi Hasar', base: '400000.0', extra: '400000.0' },
+    { label: 'Ölüm ve Sürekli Sakatlık', base: '9000000.0', extra: '9000000.0' },
+    { label: 'Sağlık Giderleri', base: '9000000.0', extra: '9000000.0' },
+    { label: 'Artan Mali Sorumluluk', base: '20000.0', extra: '40000.0' },
+    { label: 'Koltuk Ferdi Kaza', base: '-', extra: '20000.0' },
+    { label: 'Anadolu Hizmet Trafik', base: '-', extra: '-' },
+    { label: 'Hasarsızlık İndirimi', base: '%5.0', extra: '%5.0' },
+];
+
+const InsuranceTable = () => {
+    const [selectedValue, setSelectedValue] = React.useState('base');
+
+    const handleChange = (event) => {
+        setSelectedValue(event.target.value);
+    };
+
+    return (
+        <Box sx={{ p: 2 }} width="55vw">
+            <TableContainer component={Paper} sx={{borderRadius: 4,}}>
+                <Table aria-label="insurance comparison table" sx={{ backgroundColor: 'rgba(251,251,252,255)' }}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell align="center">TRAFİK BAŞLANGIÇ</TableCell>
+                            <TableCell align="center">TRAFİK EKSTRA</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((row, rowIndex) => (
+                            <TableRow key={row.label}>
+                                <TableCell
+                                    component="th"
+                                    scope="row"
+                                    sx={{ fontWeight: 'bold' }} // Make the text bold
+                                >
+                                    {row.label}
+                                </TableCell>
+                                <TableCell
+                                    align="center"
+                                    sx={{
+                                        borderLeft: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                        borderRight: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                        borderTop: rowIndex === 0 && selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                        borderBottom: rowIndex === data.length - 1 && selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                    }}
+                                >
+                                    {row.base}
+                                </TableCell>
+                                <TableCell
+                                    align="center"
+                                    sx={{
+                                        borderLeft: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                        borderRight: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                        borderTop: rowIndex === 0 && selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                        borderBottom: rowIndex === data.length - 1 && selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                    }}
+                                >
+                                    {row.extra}
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                        <TableRow>
+                            <TableCell />
+                            <TableCell
+                                align="center"
+                                sx={{
+                                    borderLeft: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                    borderRight: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                    borderBottom: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                }}
+                            >
+                                <Radio
+                                    checked={selectedValue === 'base'}
+                                    onChange={handleChange}
+                                    value="base"
+                                    name="insurance-option"
+                                    inputProps={{ 'aria-label': 'base' }}
+                                />
+                                12482 TL
+                            </TableCell>
+                            <TableCell
+                                align="center"
+                                sx={{
+                                    borderLeft: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                    borderRight: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                    borderBottom: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                                }}
+                            >
+                                <Radio
+                                    checked={selectedValue === 'extra'}
+                                    onChange={handleChange}
+                                    value="extra"
+                                    name="insurance-option"
+                                    inputProps={{ 'aria-label': 'extra' }}
+                                />
+                                15122 TL
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Box>
+    );
+};
 
 const PoliceIslemleri = () => {
 
@@ -9,7 +115,6 @@ const PoliceIslemleri = () => {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                //justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: "#fff"
             }}
@@ -18,7 +123,7 @@ const PoliceIslemleri = () => {
                 width="99vw"
                 display="flex"
                 alignItems="center"
-                justifyContent="space-between"  // Distributes space between elements
+                justifyContent="space-between"
                 height="50px"
                 borderBottom="solid #f5f5f5"
             >
@@ -79,7 +184,7 @@ const PoliceIslemleri = () => {
                     height="70"
                     viewBox="0 0 700 70"
                     xmlns="http://www.w3.org/2000/svg"
-                    >
+                >
                     {/* Lines connecting rings */}
                     <line x1="70" y1="20" x2="255" y2="20" stroke="#ffb94a" strokeWidth="4" />
                     <line x1="255" y1="20" x2="440" y2="20" stroke="#ffb94a" strokeWidth="4" />
@@ -119,7 +224,9 @@ const PoliceIslemleri = () => {
                   borderColor: '#e2edfd',
                   borderRadius: '15px',
                   borderWidth: '2px',
-                  fontSize: '1.1rem'
+                  fontSize: '1.1rem',
+                  my: 2,
+                  backgroundColor: 'rgba(230, 240, 255, .127)',
                 }}
             >
                 <Typography color="rgb(26, 125, 189)" marginLeft={8} variant="body" fontWeight="bold">
@@ -131,7 +238,25 @@ const PoliceIslemleri = () => {
                 </Typography>
 
             </Box>
-           
+
+            <InsuranceTable /> {/* Added the table here */}
+
+            <Box 
+                sx={{ mt: 2,
+                    width: '38vw', 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                     }}
+            >
+                <Button variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+                    Geri
+                </Button>
+                
+                <Button variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+                    Seç
+                </Button>
+            </Box>
+
         </Container>
     );
 };
