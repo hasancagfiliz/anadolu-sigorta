@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Grid, Box, MenuItem, InputLabel, Select, FormControl, FormControlLabel, Checkbox, Link, Typography } from '@mui/material';
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
+import { useNavigate } from 'react-router-dom';
 
 const OdemeBilgileri = () => {
     const [formData, setFormData] = useState({
@@ -18,6 +19,13 @@ const OdemeBilgileri = () => {
             [name]: type === 'checkbox' ? checked : value
         });
     };
+
+
+    const navigate = useNavigate();
+
+    const handleBackwardClick = () => {
+        navigate('/3');
+    }
 
     return (
         <Container
@@ -256,7 +264,7 @@ const OdemeBilgileri = () => {
                             justifyContent: 'space-between', 
                         }}
                     >
-                        <Button variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+                        <Button onClick={handleBackwardClick} variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
                             Geri
                         </Button>
                     

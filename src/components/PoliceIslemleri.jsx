@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Box, Typography, Button, Radio, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
+import { useNavigate } from 'react-router-dom';
 
 const data = [
     { label: 'Maddi Hasar', base: '400000.0', extra: '400000.0' },
@@ -11,6 +12,9 @@ const data = [
     { label: 'Anadolu Hizmet Trafik', base: '-', extra: '-' },
     { label: 'Hasarsızlık İndirimi', base: '%5.0', extra: '%5.0' },
 ];
+
+
+
 
 const InsuranceTable = () => {
     const [selectedValue, setSelectedValue] = React.useState('base');
@@ -118,7 +122,17 @@ const InsuranceTable = () => {
 };
 
 const PoliceIslemleri = () => {
-
+    
+    const navigate = useNavigate();
+    
+    const handleForwardClick = () => {
+        navigate('/4');
+    }
+    
+    const handleBackwardClick = () => {
+        navigate('/2');
+    }
+    
     return (
         <Container
             sx={{
@@ -257,11 +271,11 @@ const PoliceIslemleri = () => {
                     justifyContent: 'space-between', 
                      }}
             >
-                <Button variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+                <Button onClick={handleBackwardClick} variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
                     Geri
                 </Button>
                 
-                <Button variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+                <Button onClick={handleForwardClick} variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize', }}>
                     Seç
                 </Button>
             </Box>

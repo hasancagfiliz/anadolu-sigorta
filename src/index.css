@@ -10,6 +10,7 @@ body {
 
 .MuiInputBase-root {
   height: 46px;
+  font-family: 'Nunito Sans', sans-serif !important;
 }
 
 .MuiTableCell-root {
@@ -44,4 +45,12 @@ body {
   border-radius: 20px !important;
   height: 47px;
   width: 200px !important;
+}
+
+.MuiMenuItem-root {
+  font-family: 'Nunito Sans', sans-serif !important;
+}
+
+.MuiAutocomplete-paper {
+  font-family: 'Nunito Sans', sans-serif !important;
 }

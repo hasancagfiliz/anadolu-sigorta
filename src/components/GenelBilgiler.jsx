@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Container, Grid, Box, MenuItem, InputLabel, Select, FormControl, FormControlLabel, Checkbox, Link, Typography, Autocomplete} from '@mui/material';
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 
 const GenelBilgiler = () => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/2');
+    }
+    
     const [formData, setFormData] = useState({
         tcKimlik: '',
         isim: '',
@@ -433,7 +440,7 @@ const GenelBilgiler = () => {
                     Geri
                 </Button>
             
-                <Button disabled={!isFormValid()} variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+                <Button disabled={!isFormValid()} onClick={handleClick} variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
                     Devam
                 </Button>
             </Box>
