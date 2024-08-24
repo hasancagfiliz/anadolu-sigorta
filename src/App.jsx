@@ -7,7 +7,7 @@ import OdemeBilgileri from './components/OdemeBilgileri';
 function App() {
   return (
       <div>
-        <PoliceIslemleri />
+        <OdemeBilgileri />
       </div>
   );
 }

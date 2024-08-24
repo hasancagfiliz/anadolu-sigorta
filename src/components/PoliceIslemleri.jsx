@@ -22,87 +22,96 @@ const InsuranceTable = () => {
     return (
         <Box sx={{ p: 2 }} width="55vw">
             <TableContainer component={Paper} sx={{borderRadius: 4,}}>
-                <Table aria-label="insurance comparison table" sx={{ backgroundColor: 'rgba(251,251,252,255)' }}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell align="center">TRAFİK BAŞLANGIÇ</TableCell>
-                            <TableCell align="center">TRAFİK EKSTRA</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {data.map((row, rowIndex) => (
-                            <TableRow key={row.label}>
-                                <TableCell
-                                    component="th"
-                                    scope="row"
-                                    sx={{ fontWeight: 'bold' }} // Make the text bold
-                                >
-                                    {row.label}
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                    sx={{
-                                        borderLeft: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                        borderRight: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                        borderTop: rowIndex === 0 && selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                        borderBottom: rowIndex === data.length - 1 && selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                    }}
-                                >
-                                    {row.base}
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                    sx={{
-                                        borderLeft: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                        borderRight: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                        borderTop: rowIndex === 0 && selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                        borderBottom: rowIndex === data.length - 1 && selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                    }}
-                                >
-                                    {row.extra}
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                        <TableRow>
-                            <TableCell />
-                            <TableCell
-                                align="center"
-                                sx={{
-                                    borderLeft: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                    borderRight: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                    borderBottom: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                }}
-                            >
-                                <Radio
-                                    checked={selectedValue === 'base'}
-                                    onChange={handleChange}
-                                    value="base"
-                                    name="insurance-option"
-                                    inputProps={{ 'aria-label': 'base' }}
-                                />
-                                12482 TL
-                            </TableCell>
-                            <TableCell
-                                align="center"
-                                sx={{
-                                    borderLeft: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                    borderRight: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                    borderBottom: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
-                                }}
-                            >
-                                <Radio
-                                    checked={selectedValue === 'extra'}
-                                    onChange={handleChange}
-                                    value="extra"
-                                    name="insurance-option"
-                                    inputProps={{ 'aria-label': 'extra' }}
-                                />
-                                15122 TL
-                            </TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
+            <Table aria-label="insurance comparison table" sx={{ backgroundColor: 'rgba(251,251,252,255)' }}>
+    <TableHead>
+        <TableRow>
+            <TableCell sx={{ padding: '4px 8px', height: '30px' }}></TableCell>
+            <TableCell align="center" sx={{ padding: '4px 8px', height: '30px' }}>TRAFİK BAŞLANGIÇ</TableCell>
+            <TableCell align="center" sx={{ padding: '4px 8px', height: '30px' }}>TRAFİK EKSTRA</TableCell>
+        </TableRow>
+    </TableHead>
+    <TableBody>
+        {data.map((row, rowIndex) => (
+            <TableRow key={row.label}>
+                <TableCell
+                    component="th"
+                    scope="row"
+                    sx={{ fontWeight: 'bold', padding: '4px 8px', height: '30px' }}
+                >
+                    {row.label}
+                </TableCell>
+                <TableCell
+                    align="center"
+                    sx={{
+                        padding: '4px 8px',
+                        height: '30px',
+                        borderLeft: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                        borderRight: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                        borderTop: rowIndex === 0 && selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                        borderBottom: rowIndex === data.length - 1 && selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                    }}
+                >
+                    {row.base}
+                </TableCell>
+                <TableCell
+                    align="center"
+                    sx={{
+                        padding: '4px 8px',
+                        height: '30px',
+                        borderLeft: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                        borderRight: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                        borderTop: rowIndex === 0 && selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                        borderBottom: rowIndex === data.length - 1 && selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                    }}
+                >
+                    {row.extra}
+                </TableCell>
+            </TableRow>
+        ))}
+        <TableRow>
+            <TableCell sx={{ padding: '4px 8px', height: '30px' }} />
+            <TableCell
+                align="center"
+                sx={{
+                    padding: '4px 8px',
+                    height: '30px',
+                    borderLeft: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                    borderRight: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                    borderBottom: selectedValue === 'base' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                }}
+            >
+                <Radio
+                    checked={selectedValue === 'base'}
+                    onChange={handleChange}
+                    value="base"
+                    name="insurance-option"
+                    inputProps={{ 'aria-label': 'base' }}
+                />
+                12482 TL
+            </TableCell>
+            <TableCell
+                align="center"
+                sx={{
+                    padding: '4px 8px',
+                    height: '30px',
+                    borderLeft: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                    borderRight: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                    borderBottom: selectedValue === 'extra' ? '2px solid #018fec' : '1px solid #e0e0e0',
+                }}
+            >
+                <Radio
+                    checked={selectedValue === 'extra'}
+                    onChange={handleChange}
+                    value="extra"
+                    name="insurance-option"
+                    inputProps={{ 'aria-label': 'extra' }}
+                />
+                15122 TL
+            </TableCell>
+        </TableRow>
+    </TableBody>
+</Table>
+
             </TableContainer>
         </Box>
     );

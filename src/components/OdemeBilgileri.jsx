@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Grid, Box, MenuItem, InputLabel, Select, FormControl, FormControlLabel, Checkbox, Link, Typography, Autocomplete} from '@mui/material';
+import { TextField, Button, Container, Grid, Box, MenuItem, InputLabel, Select, FormControl, FormControlLabel, Checkbox, Link, Typography } from '@mui/material';
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 
 const OdemeBilgileri = () => {
@@ -7,6 +7,8 @@ const OdemeBilgileri = () => {
         isim: '',
         soyisim: '',
         kartnumarasi: '',
+        expiry: '',
+        odemeTipi: ''
     });
 
     const handleChange = (e) => {
@@ -22,11 +24,11 @@ const OdemeBilgileri = () => {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                //justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: "#fff"
             }}
         >
+            {/* Header */}
             <Box
                 width="99vw"
                 display="flex"
@@ -42,7 +44,6 @@ const OdemeBilgileri = () => {
                         focusable="false"
                         aria-hidden="true"
                         viewBox="0 0 24 24"
-                        data-testid="NotesOutlinedIcon"
                         style={{ width: '30px', height: '30px', fill: 'grey', marginRight: '15', marginLeft: '3vw' }}
                     >
                         <path d="M21 11.01 3 11v2h18zM3 16h12v2H3zM21 6H3v2.01L21 8z"></path>
@@ -66,6 +67,7 @@ const OdemeBilgileri = () => {
                 </Box>
             </Box>
             
+            {/* Sub-header */}
             <Box
                 height="48px"
                 width="99vw"
@@ -79,6 +81,7 @@ const OdemeBilgileri = () => {
                 </Typography>
             </Box>
 
+            {/* Progress Bar */}
             <Box
                 width="99vw"
                 display="flex"
@@ -92,35 +95,38 @@ const OdemeBilgileri = () => {
                     height="70"
                     viewBox="0 0 700 70"
                     xmlns="http://www.w3.org/2000/svg"
-                    >
+                >
                     {/* Lines connecting rings */}
                     <line x1="70" y1="20" x2="255" y2="20" stroke="#ffb94a" strokeWidth="4" />
                     <line x1="255" y1="20" x2="440" y2="20" stroke="#ffb94a" strokeWidth="4" />
-                    <line x1="440" y1="20" x2="625" y2="20" stroke="lightgray" strokeWidth="3" />
+                    <line x1="440" y1="20" x2="625" y2="20" stroke="#ffb94a" strokeWidth="4" />
 
                     {/* First ring */}
                     <circle cx="70" cy="20" r="12" fill="#ffb94a" stroke="#ffb94a" strokeWidth="5" />
                     {/* Tick mark inside the first ring */}
-                    <path d="M64,20 L68,25 L76,15" fill="none" stroke="#fff" strokeWidth="2.5"/>
+                    <path d="M64,20 L68,25 L76,15" fill="none" stroke="#fff" strokeWidth="2.5" />
 
                     {/* Second ring */}
                     <circle cx="255" cy="20" r="12" fill="#ffb94a" stroke="#ffb94a" strokeWidth="5" />
                     <path d="M249,20 L253,25 L261,15" fill="none" stroke="#fff" strokeWidth="2.5" />
                     
                     {/* Third ring */}
-                    <circle cx="440" cy="20" r="12" fill="white" stroke="#ffb94a" strokeWidth="5" />
-                    
+                    <circle cx="440" cy="20" r="12" fill="#ffb94a" stroke="#ffb94a" strokeWidth="5" />
+                    <path d="M434,20 L438,25 L446,15" fill="none" stroke="#fff" strokeWidth="2.5" />
+
                     {/* Fourth ring */}
-                    <circle cx="625" cy="20" r="12" fill="white" stroke="lightgray" strokeWidth="3" />
+                    <circle cx="625" cy="20" r="12" fill="white" stroke="#ffb94a" strokeWidth="5" />
 
                     {/* Text labels */}
                     <text x="70" y="60" textAnchor="middle" fill="black" fontSize="0.9rem" fontWeight="bold">Genel Bilgiler</text>
                     <text x="255" y="60" textAnchor="middle" fill="black" fontSize="0.9rem" fontWeight="bold">Araç Bilgileri</text>
                     <text x="440" y="60" textAnchor="middle" fill="black" fontSize="0.9rem" fontWeight="bold">Poliçe İşlemleri</text>
-                    <text x="625" y="60" textAnchor="middle" fill="black" fontSize="0.9rem">Ödeme Bilgileri</text>
+                    <text x="625" y="60" textAnchor="middle" fill="black" fontSize="0.9rem" fontWeight="bold">Ödeme Bilgileri</text>
                 </svg>
+
             </Box>
 
+            {/* Offer Details */}
             <Box
                 display="flex"
                 alignItems="center"
@@ -133,7 +139,8 @@ const OdemeBilgileri = () => {
                   borderRadius: '15px',
                   borderWidth: '2px',
                   fontSize: '1.1rem',
-                  marginBottom: '10px'
+                  marginBottom: '10px',
+                  backgroundColor: 'rgba(230, 240, 255, .127)',
                 }}
             >
                 <Typography color="rgb(26, 125, 189)" marginLeft={8} variant="body" fontWeight="bold">
@@ -143,8 +150,10 @@ const OdemeBilgileri = () => {
                 <Typography color="rgb(26, 125, 189)" marginRight={8} variant="body" fontWeight="bold">
                     Size Özel Tutar: 12482 TL
                 </Typography>
+
             </Box>
            
+            {/* Form Section */}
             <Box
                 padding={3}
                 sx={{
@@ -152,12 +161,13 @@ const OdemeBilgileri = () => {
                     borderColor: '#e2edfd',
                     borderRadius: '15px',
                     borderWidth: '2px',
-                    fontSize: '1.1rem',
+                    width: '42vw',
                 }}
             >
                 <Grid container spacing={2}>
-                    <Grid item xs={12} md={3}>
-                        <TextField
+                    <Grid item xs={12} md={6}>
+                        <TextField 
+                            fullWidth
                             id="isim"
                             label="İsim"
                             variant="outlined"
@@ -165,15 +175,14 @@ const OdemeBilgileri = () => {
                             value={formData.isim}
                             onChange={handleChange}
                             required
-                            sx={{ mb: 1 }}
                             InputLabelProps={{
-                                shrink: true,  // This keeps the label static above the text field
+                                shrink: true,
                             }}
-                        
                         />
                     </Grid>
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                         <TextField
+                            fullWidth
                             id="soyisim"
                             label="Soyisim"
                             variant="outlined"
@@ -181,15 +190,14 @@ const OdemeBilgileri = () => {
                             value={formData.soyisim}
                             onChange={handleChange}
                             required
-                            sx={{ mb: 1 }}
                             InputLabelProps={{
-                                shrink: true,  // This keeps the label static above the text field
+                                shrink: true,
                             }}
                         />
                     </Grid>
-
                     <Grid item xs={12} md={12}>
                         <TextField
+                            fullWidth
                             id="kartnumarasi"
                             label="Kart Numarası"
                             variant="outlined"
@@ -197,15 +205,113 @@ const OdemeBilgileri = () => {
                             value={formData.kartnumarasi}
                             onChange={handleChange}
                             required
-                            sx={{ mb: 1 }}
                             InputLabelProps={{
-                                shrink: true,  // This keeps the label static above the text field
+                                shrink: true,
                             }}
                         />
                     </Grid>
-                </Grid>
+                    
 
-           </Box>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            fullWidth
+                            id="expiry"
+                            label="AA/YY"
+                            variant="outlined"
+                            name="expiry"
+                            value={formData.expiry}
+                            onChange={handleChange}
+                            required
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <FormControl fullWidth required>
+                            <InputLabel id="odemeTipi-label" shrink>Ödeme Tipi</InputLabel>
+                            <Select
+                                labelId="odemeTipi-label"
+                                label="odemeTipi"
+                                name="odemeTipi"
+                                value={formData.odemeTipi}
+                                onChange={handleChange}
+                                displayEmpty
+                            >
+                                <MenuItem value="kredi">Kredi Kartı</MenuItem>
+                                <MenuItem value="nakit">Nakit</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                </Grid>
+                </Box>
+                
+                {/* Card Image and Number Overlay */}
+            
+                <Box
+                    sx={{
+                        width: '300px',
+                        height: '180px',
+                        backgroundImage: 'url(/src/assets/images/credit-card-empty.png)',
+                        backgroundSize: 'cover',
+                        position: 'relative',
+                        mt: 3,
+                        borderRadius: '8px',
+                    }}
+                >
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            top: '60%',
+                            left: '10%',
+                            fontSize: '1.5rem',
+                            fontFamily: 'monospace',
+                            letterSpacing: '0.1rem',
+                        }}
+                    >
+                        {formData.kartnumarasi}
+                    </Box>
+                </Box>
+                <Box 
+                    mt={2}
+                    p={3}
+                    sx={{
+                        border: 'solid',
+                        borderColor: '#e2edfd',
+                        borderRadius: '15px',
+                        borderWidth: '2px',
+                        width: '30vw',
+                    }}
+                >
+                    <FormControlLabel
+                        control={<Checkbox name="terms" onChange={handleChange} size="small"/>}
+                        label={
+                            <span>
+                                <Link href="#">Bilgilendirme Formunu</Link> okudum, onaylıyorum.
+                            </span>
+                        }
+                        sx={{ marginBottom: '16px' }}
+                    />
+                    <FormControlLabel
+                        control={<Checkbox name="terms2" onChange={handleChange} size="small"/>}
+                        label={
+                            <span>
+                                <Link href="#">Mesafeli Satış Sözleşmesini</Link> okudum, onaylıyorum.
+                            </span>
+                        }
+                        sx={{ marginBottom: '16px' }} 
+                    />
+                    <FormControlLabel
+                        control={<Checkbox name="consent" onChange={handleChange} size="small"/>}
+                        label={
+                            <span>
+                                Kredi Kartı bilgilerimin sonraki işlemlerim için kullanılması amacıyla{' '}
+                                <Link href="#">bilgilendirme metni</Link> kapsamında saklanmasını kabul ediyorum.
+                            </span>
+                        }
+                    />
+                </Box>
+
         </Container>
     );
 };
