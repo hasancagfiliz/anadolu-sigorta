@@ -20,6 +20,17 @@ const GenelBilgiler = () => {
 
     const ilKodlari = [...Array(81).keys()].map(num => String(num + 1).padStart(2, '0'));
 
+    const isFormValid = () => {
+        const { tcKimlik, isim, soyisim, ePosta, cepTelefonu, islemTipi, ilKodu, plakaNumarasi, ruhsatKodu, ruhsatNumarasi, checkbox1, checkbox2 } = formData;
+        if (formData.islemTipi === "option1") {
+            return tcKimlik && isim && soyisim && ePosta && cepTelefonu && islemTipi && ilKodu && plakaNumarasi && ruhsatKodu && ruhsatNumarasi && checkbox1 && checkbox2;
+        }
+        if (formData.islemTipi === "option2") {
+            return tcKimlik && isim && soyisim && ePosta && cepTelefonu && islemTipi && ilKodu && plakaNumarasi && checkbox1 && checkbox2;
+        }
+    };
+
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData({
@@ -379,7 +390,7 @@ const GenelBilgiler = () => {
                     label={
                         <Typography color='black' variant='body' fontSize='1rem'>
                             Teklif ve poliçe işlemlerinin yürütülmesi amacıyla işlenen kişisel verilere ilişkin{" "}
-                            <Link href="https://www.anadolusigorta.com.tr/yasal-bilgilendirme/kvkk-kapsaminda-bilgilendirme" target="_blank" rel="noopener noreferrer">
+                            <Link href="https://www.anadolusigorta.com.tr/yasal-bilgilendirme/kvkk-kapsaminda-bilgilendirme" target="_blank" rel="noopener noreferrer" sx={{ textDecoration: 'none',}}>
                                 aydınlatma metnini
                             </Link> 
                             {" "}okudum.
@@ -400,7 +411,7 @@ const GenelBilgiler = () => {
                     label={
                         <Typography color='black' variant='body' fontSize='1rem'>
                             Ürün, hizmet, kampanya ve anketler hakkında tarafımla ticari elektronik ileti gönderilmesi ve pazarlama amacıyla iletişime geçilmesine{" "}
-                            <Link href="https://firebasestorage.googleapis.com/v0/b/sigortam-cepte-v2.appspot.com/o/static%2FTicari_Elektronik_Ileti_Aydinlatma_Metni.pdf?alt=media&token=a0211957-332a-4cdc-b665-0957a4c6dc06" target="_blank" rel="noopener noreferrer">
+                            <Link href="https://firebasestorage.googleapis.com/v0/b/sigortam-cepte-v2.appspot.com/o/static%2FTicari_Elektronik_Ileti_Aydinlatma_Metni.pdf?alt=media&token=a0211957-332a-4cdc-b665-0957a4c6dc06" target="_blank" rel="noopener noreferrer" sx={{ textDecoration: 'none',}}>
                                 belirtilen esaslar
                             </Link>
                             {" "}çerçevesinde onay veriyorum.
@@ -408,11 +419,25 @@ const GenelBilgiler = () => {
                     }
                     sx={{ mt: 3 }}
                 />
+            </Box>
 
-                <Button type="submit" variant="contained" color="primary" sx={{ mt: 3, width: '30%' }}>
-                    Gönder
+            <Box 
+                sx={{ 
+                    mt: 5,
+                    width: '42vw', 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                }}
+            >
+                <Button variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+                    Geri
+                </Button>
+            
+                <Button disabled={!isFormValid()} variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+                    Devam
                 </Button>
             </Box>
+
         </Container>
     );
 };

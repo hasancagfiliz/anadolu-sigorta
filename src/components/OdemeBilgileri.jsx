@@ -152,165 +152,198 @@ const OdemeBilgileri = () => {
                 </Typography>
 
             </Box>
-           
-            {/* Form Section */}
-            <Box
-                padding={3}
-                sx={{
-                    border: 'solid',
-                    borderColor: '#e2edfd',
-                    borderRadius: '15px',
-                    borderWidth: '2px',
-                    width: '42vw',
-                }}
-            >
-                <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
-                        <TextField 
-                            fullWidth
-                            id="isim"
-                            label="İsim"
-                            variant="outlined"
-                            name="isim"
-                            value={formData.isim}
-                            onChange={handleChange}
-                            required
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <TextField
-                            fullWidth
-                            id="soyisim"
-                            label="Soyisim"
-                            variant="outlined"
-                            name="soyisim"
-                            value={formData.soyisim}
-                            onChange={handleChange}
-                            required
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <TextField
-                            fullWidth
-                            id="kartnumarasi"
-                            label="Kart Numarası"
-                            variant="outlined"
-                            name="kartnumarasi"
-                            value={formData.kartnumarasi}
-                            onChange={handleChange}
-                            required
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        />
-                    </Grid>
-                    
-
-                    <Grid item xs={12} md={6}>
-                        <TextField
-                            fullWidth
-                            id="expiry"
-                            label="AA/YY"
-                            variant="outlined"
-                            name="expiry"
-                            value={formData.expiry}
-                            onChange={handleChange}
-                            required
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <FormControl fullWidth required>
-                            <InputLabel id="odemeTipi-label" shrink>Ödeme Tipi</InputLabel>
-                            <Select
-                                labelId="odemeTipi-label"
-                                label="odemeTipi"
-                                name="odemeTipi"
-                                value={formData.odemeTipi}
-                                onChange={handleChange}
-                                displayEmpty
-                            >
-                                <MenuItem value="kredi">Kredi Kartı</MenuItem>
-                                <MenuItem value="nakit">Nakit</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                </Grid>
-                </Box>
-                
-                {/* Card Image and Number Overlay */}
             
+            <Box sx={{ width: '90vw', justifyContent: 'center', display:'flex', marginTop: '25px'}}>
+                
+                {/* Form Section */}
                 <Box
-                    sx={{
-                        width: '300px',
-                        height: '180px',
-                        backgroundImage: 'url(/src/assets/images/credit-card-empty.png)',
-                        backgroundSize: 'cover',
-                        position: 'relative',
-                        mt: 3,
-                        borderRadius: '8px',
-                    }}
-                >
-                    <Box
-                        sx={{
-                            position: 'absolute',
-                            top: '60%',
-                            left: '10%',
-                            fontSize: '1.5rem',
-                            fontFamily: 'monospace',
-                            letterSpacing: '0.1rem',
-                        }}
-                    >
-                        {formData.kartnumarasi}
-                    </Box>
-                </Box>
-                <Box 
-                    mt={2}
-                    p={3}
+                    padding={3}
                     sx={{
                         border: 'solid',
                         borderColor: '#e2edfd',
                         borderRadius: '15px',
                         borderWidth: '2px',
-                        width: '30vw',
+                        width: '42vw',
+                        height: '250px'
                     }}
                 >
-                    <FormControlLabel
-                        control={<Checkbox name="terms" onChange={handleChange} size="small"/>}
-                        label={
-                            <span>
-                                <Link href="#">Bilgilendirme Formunu</Link> okudum, onaylıyorum.
-                            </span>
-                        }
-                        sx={{ marginBottom: '16px' }}
-                    />
-                    <FormControlLabel
-                        control={<Checkbox name="terms2" onChange={handleChange} size="small"/>}
-                        label={
-                            <span>
-                                <Link href="#">Mesafeli Satış Sözleşmesini</Link> okudum, onaylıyorum.
-                            </span>
-                        }
-                        sx={{ marginBottom: '16px' }} 
-                    />
-                    <FormControlLabel
-                        control={<Checkbox name="consent" onChange={handleChange} size="small"/>}
-                        label={
-                            <span>
-                                Kredi Kartı bilgilerimin sonraki işlemlerim için kullanılması amacıyla{' '}
-                                <Link href="#">bilgilendirme metni</Link> kapsamında saklanmasını kabul ediyorum.
-                            </span>
-                        }
-                    />
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} md={6}>
+                            <TextField 
+                                fullWidth
+                                id="isim"
+                                label="İsim"
+                                variant="outlined"
+                                name="isim"
+                                value={formData.isim}
+                                onChange={handleChange}
+                                required
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                fullWidth
+                                id="soyisim"
+                                label="Soyisim"
+                                variant="outlined"
+                                name="soyisim"
+                                value={formData.soyisim}
+                                onChange={handleChange}
+                                required
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={12}>
+                            <TextField
+                                fullWidth
+                                id="kartnumarasi"
+                                label="Kart Numarası"
+                                variant="outlined"
+                                name="kartnumarasi"
+                                value={formData.kartnumarasi}
+                                onChange={handleChange}
+                                required
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
+                        
+
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                fullWidth
+                                id="expiry"
+                                label="AA/YY"
+                                variant="outlined"
+                                name="expiry"
+                                value={formData.expiry}
+                                onChange={handleChange}
+                                required
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={12}>
+                            <FormControl fullWidth required>
+                                <InputLabel id="odemeTipi-label" shrink>Ödeme Tipi</InputLabel>
+                                <Select
+                                    labelId="odemeTipi-label"
+                                    label="odemeTipi"
+                                    name="odemeTipi"
+                                    value={formData.odemeTipi}
+                                    onChange={handleChange}
+                                    displayEmpty
+                                >
+                                    <MenuItem value="kredi">Kredi Kartı</MenuItem>
+                                    <MenuItem value="nakit">Nakit</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+
+                    <Box 
+                        sx={{ 
+                            mt: 14,
+                            width: '38vw', 
+                            display: 'flex', 
+                            justifyContent: 'space-between', 
+                        }}
+                    >
+                        <Button variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+                            Geri
+                        </Button>
+                    
+                        <Button disabled variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+                            Ödeme Yap
+                        </Button>
+                    </Box>
                 </Box>
+                    
+                    
+                <Box sx={{ marginLeft: '20px', }}>
+                    {/* Card Image and Number Overlay */}
+                    <Box
+                        sx={{
+                            width: '30vw',
+                            height: '250px',
+                            backgroundImage: 'url(/src/assets/images/credit-card-empty.png)',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            mt: 3,
+                            margin: '0 auto', // Center the card image horizontally
+                            position: 'relative', // Ensure the overlay text positions correctly
+                            border: 'solid',
+                            borderWidth: '2px',
+                            borderRadius: '15px',
+                            borderColor: '#e2edfd',
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: '60%',
+                                left: '10%',
+                                fontSize: '1.5rem',
+                                fontFamily: 'monospace',
+                                letterSpacing: '0.1rem',
+                            }}
+                        >
+                            {formData.kartnumarasi}
+                        </Box>
+                    </Box>
+
+                    <Box 
+                        mt={2}
+                        p={3}
+                        sx={{
+                            border: 'solid',
+                            borderColor: '#e2edfd',
+                            borderRadius: '15px',
+                            borderWidth: '2px',
+                            width: '30vw',
+                        }}
+                    >
+                        <FormControlLabel
+                            control={<Checkbox name="terms" onChange={handleChange} size="small"/>}
+                            label={
+                                <span>
+                                    <Link href="#">Bilgilendirme Formunu</Link> okudum, onaylıyorum.
+                                </span>
+                            }
+                            sx={{ marginBottom: '16px' }}
+                        />
+                        <FormControlLabel
+                            control={<Checkbox name="terms2" onChange={handleChange} size="small"/>}
+                            label={
+                                <span>
+                                    <Link href="#">Mesafeli Satış Sözleşmesini</Link> okudum, onaylıyorum.
+                                </span>
+                            }
+                            sx={{ marginBottom: '16px' }} 
+                        />
+                        <FormControlLabel
+                            control={<Checkbox name="consent" onChange={handleChange} size="small"/>}
+                            label={
+                                <span>
+                                    Kredi Kartı bilgilerimin sonraki işlemlerim için kullanılması amacıyla{' '}
+                                    <Link href="#">bilgilendirme metni</Link> kapsamında saklanmasını kabul ediyorum.
+                                </span>
+                            }
+                        />
+                    </Box>
+                </Box>
+            </Box>
+                
+
+            
+            
 
         </Container>
     );
