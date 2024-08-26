@@ -1,11 +1,17 @@
-import React from "react";
-import { Box, Container, Typography } from "@mui/material";
+import React from 'react';
+import { Autocomplete, Grid, Box, Container, TextField, Typography } from "@mui/material";
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 
 const AracBilgileri  = () => {
 
+    const options = [
+        { label: 'Option 1', value: 1 },
+        { label: 'Option 2', value: 2 },
+        { label: 'Option 3', value: 3 },
+    ];
 
     return (
+        
         <Container 
             sx={{
                 display: 'flex',
@@ -104,6 +110,79 @@ const AracBilgileri  = () => {
                     <text x="625" y="60" textAnchor="middle" fill="black" fontSize="0.9rem">Ödeme Bilgileri</text>
                     
                 </svg>
+            </Box>
+
+            <Box 
+                sx={{ width: '80vw',
+                    border: 'solid',
+                    borderColor: '#e2edfd',
+                    borderWidth: '2px',
+                    borderRadius: 4,
+                    padding: 3,
+                }}
+            >
+                
+                <Box sx={{  border:'0',
+                            borderBottom: '5 px dotted green',
+                }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <Autocomplete
+                                options={options}
+                                getOptionLabel={(option) => option.label}
+                                renderInput={(params) => (
+                                    <TextField {...params} label="Autocomplete 1" variant="outlined" />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Autocomplete
+                                options={options}
+                                getOptionLabel={(option) => option.label}
+                                renderInput={(params) => (
+                                    <TextField {...params} label="Marka" variant="outlined" InputLabelProps={{ shrink: true }} />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Autocomplete
+                                options={options}
+                                getOptionLabel={(option) => option.label}
+                                renderInput={(params) => (
+                                    <TextField {...params} label="Kullanım Tipi" variant="outlined" InputLabelProps={{ shrink: true }} />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Autocomplete
+                                options={options}
+                                getOptionLabel={(option) => option.label}
+                                renderInput={(params) => (
+                                    <TextField {...params} label="Kullanım Şekli" variant="outlined" InputLabelProps={{ shrink: true }}/>
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Autocomplete
+                                options={options}
+                                getOptionLabel={(option) => option.label}
+                                renderInput={(params) => (
+                                    <TextField {...params} label="Model" variant="outlined" InputLabelProps={{ shrink: true }} />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Autocomplete
+                                options={options}
+                                getOptionLabel={(option) => option.label}
+                                renderInput={(params) => (
+                                    <TextField {...params} label="Model Detayı" variant="outlined" InputLabelProps={{ shrink: true }}/>
+                                )}
+                            />
+                        </Grid>
+                    </Grid>
+                </Box>
+
             </Box>
 
 
