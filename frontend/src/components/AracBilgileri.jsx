@@ -73,7 +73,7 @@ const AracBilgileri  = () => {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                p={1}
+                //p={1}
                 sx={{ position: 'relative', width: '100%', height: '100px' }}
             >
                 <svg
@@ -99,7 +99,7 @@ const AracBilgileri  = () => {
                     <circle cx="625" cy="20" r="12" fill="white" stroke="lightgray" strokeWidth="3" />
 
                     <text x="70" y="60" textAnchor="middle" fill="black" fontSize="0.9rem" fontWeight="bold">Genel Bilgiler</text>
-                    <text x="255" y="60" textAnchor="middle" fill="black" fontSize="0.9rem">Araç Bilgileri</text>
+                    <text x="255" y="60" textAnchor="middle" fill="black" fontSize="0.9rem" fontWeight="bold">Araç Bilgileri</text>
                     <text x="440" y="60" textAnchor="middle" fill="black" fontSize="0.9rem"> Poliçe İşlemleri</text>
                     <text x="625" y="60" textAnchor="middle" fill="black" fontSize="0.9rem">Ödeme Bilgileri</text>
                     
