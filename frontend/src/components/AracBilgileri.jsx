@@ -1,8 +1,39 @@
-import React from 'react';
-import { Autocomplete, Grid, Box, Container, TextField, Typography } from "@mui/material";
+import React, {useState} from 'react';
+import { Autocomplete, Grid, FormControl, InputLabel, MenuItem, Select, Box, Container, TextField, Typography } from "@mui/material";
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 
 const AracBilgileri  = () => {
+    
+    const [formData, setFormData] = useState({
+        modelYili: '',
+        marka: '',
+        kullanimTipi: '',
+        kullanimSekli: '',
+        model: '',
+        modelDetayi: '',
+        motorNumarasi: '',
+        sasiNumarasi: '',
+        tescilTarihi: '',
+        checkbox1: false,
+        checkbox2: false,
+    });
+
+    const currentYear = new Date().getFullYear();
+    const years = Array.from(new Array(50), (val, index) => currentYear - index);
+
+    const handleChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        setFormData({
+          ...formData,
+          [name]: type === 'checkbox' ? checked : value
+        });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Handle form submission
+        console.log(formData);
+    };
 
     const options = [
         { label: 'Option 1', value: 1 },
@@ -10,13 +41,12 @@ const AracBilgileri  = () => {
         { label: 'Option 3', value: 3 },
     ];
 
+    
     return (
-        
         <Container 
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                //justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: "#fff"
             }}
@@ -127,13 +157,23 @@ const AracBilgileri  = () => {
                 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
-                            <Autocomplete
-                                options={options}
-                                getOptionLabel={(option) => option.label}
-                                renderInput={(params) => (
-                                    <TextField {...params} label="Autocomplete 1" variant="outlined" />
-                                )}
-                            />
+                            <FormControl fullWidth variant="outlined">
+                                <InputLabel id="year-select-label">Model Yılı</InputLabel>
+                                <Select
+                                labelId="year-select-label"
+                                id="year-select"
+                                name="modelYili"
+                                value={formData.modelYili}
+                                onChange={handleChange}
+                                label="Model Yılı"
+                                >
+                                {years.map((year) => (
+                                    <MenuItem key={year} value={year}>
+                                    {year}
+                                    </MenuItem>
+                                ))}
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Autocomplete
@@ -184,8 +224,6 @@ const AracBilgileri  = () => {
                 </Box>
 
             </Box>
-
-
 
         </Container>
 
