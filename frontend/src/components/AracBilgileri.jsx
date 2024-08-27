@@ -1,9 +1,21 @@
 import React, {useState} from 'react';
-import { Autocomplete, Grid, FormControl, InputLabel, MenuItem, Select, Box, Container, TextField, Typography } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+import { Autocomplete, Button, Grid, FormControl, FormControlLabel, Checkbox, InputLabel, MenuItem, Select, Box, Container, TextField, Typography } from "@mui/material";
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 
 const AracBilgileri  = () => {
     
+    const navigate = useNavigate();
+
+    const handleBackwardClick = () => {
+        navigate('/1');
+    }
+
+    const handleForwardClick = () => {
+        navigate('/3');
+    }
+    
+
     const [formData, setFormData] = useState({
         modelYili: '',
         marka: '',
@@ -18,16 +30,86 @@ const AracBilgileri  = () => {
         checkbox2: false,
     });
 
+    const isFormValid = () => {
+        const { modelYili, marka, kullanimTipi, kullanimSekli, model, modelDetayi, motorNumarasi, sasiNumarasi, tescilTarihi, checkbox1, checkbox2 } = formData;
+    
+        // Check for required fields based on conditions
+        return modelYili && marka && kullanimTipi && kullanimSekli && model && modelDetayi && motorNumarasi && sasiNumarasi && tescilTarihi && checkbox1 && checkbox2;
+    };
+    
+
     const currentYear = new Date().getFullYear();
     const years = Array.from(new Array(50), (val, index) => currentYear - index);
 
-    const handleChange = (event) => {
-        const { name, value, type, checked } = event.target;
+    const [lockedItems, setLockedItems] = useState([false, true, true, true, true, true]);
+
+    const formatDate = (value) => {
+        // Remove any non-digit characters
+        const digits = value.replace(/\D/g, '');
+        let formattedDate = '';
+    
+        // Add slashes after every 2 digits for day and month, and after 4 digits for year
+        if (digits.length > 0) {
+            formattedDate += digits.substring(0, 2); // Day
+        }
+        if (digits.length > 2) {
+            formattedDate += '/' + digits.substring(2, 4); // Month
+        }
+        if (digits.length > 4) {
+            formattedDate += '/' + digits.substring(4, 8); // Year (4 digits)
+        }
+    
+        return formattedDate;
+    };
+    
+    
+    const handleDateChange = (event) => {
+        const { name, value } = event.target;
+    
+        // Format the date input
+        const formattedValue = name === 'tescilTarihi' ? formatDate(value) : value;
+    
         setFormData({
-          ...formData,
-          [name]: type === 'checkbox' ? checked : value
+            ...formData,
+            [name]: formattedValue
         });
     };
+
+    const handleCheckboxChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        
+        // Convert value to uppercase if the field is 'plakaNumarasi'
+        const updatedValue = name === 'plakaNumarasi' ? value.toUpperCase() : value;
+    
+        setFormData({
+            ...formData,
+            [name]: type === 'checkbox' ? checked : updatedValue
+        });
+    };
+    
+    const handleFormChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
+    const handleChange = (event, value, index, field) => {
+        const newValue = value || (event ? event.target.value : '');
+        setFormData({
+            ...formData,
+            [field]: newValue
+        });
+    
+        // Unlock the next item
+        if (index < lockedItems.length - 1) {
+            const newLockedItems = [...lockedItems];
+            newLockedItems[index + 1] = false;
+            setLockedItems(newLockedItems);
+        }
+    };
+    
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -48,7 +130,7 @@ const AracBilgileri  = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                backgroundColor: "#fff"
+                backgroundColor: "#fff",
             }}
         >
 
@@ -143,28 +225,29 @@ const AracBilgileri  = () => {
             </Box>
 
             <Box 
-                sx={{ width: '80vw',
+                sx={{ 
+                    height: '60vh',
+                    width: '80vw',
                     border: 'solid',
                     borderColor: '#e2edfd',
                     borderWidth: '2px',
                     borderRadius: 4,
-                    padding: 3,
+                    padding: 4,
                 }}
             >
                 
-                <Box sx={{  border:'0',
-                            borderBottom: '5 px dotted green',
-                }}>
-                    <Grid container spacing={2}>
+                <Box>
+                    <Grid container spacing={4}>
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth variant="outlined">
-                                <InputLabel id="year-select-label">Model Yılı</InputLabel>
+                                <InputLabel id="year-select-label" shrink>Model Yılı</InputLabel>
                                 <Select
+                                value={formData.modelYili}
+                                displayEmpty
                                 labelId="year-select-label"
                                 id="year-select"
                                 name="modelYili"
-                                value={formData.modelYili}
-                                onChange={handleChange}
+                                onChange={(event) => handleChange(event, null, 0, 'modelYili')}
                                 label="Model Yılı"
                                 >
                                 {years.map((year) => (
@@ -177,8 +260,11 @@ const AracBilgileri  = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Autocomplete
+                                value={formData.marka}
+                                onChange={(event, value) => handleChange(event, value, 1, 'marka')}
                                 options={options}
                                 getOptionLabel={(option) => option.label}
+                                disabled={lockedItems[1]}
                                 renderInput={(params) => (
                                     <TextField {...params} label="Marka" variant="outlined" InputLabelProps={{ shrink: true }} />
                                 )}
@@ -186,8 +272,11 @@ const AracBilgileri  = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Autocomplete
+                                value={formData.kullanimTipi}
+                                onChange={(event, value) => handleChange(event, value, 2, 'kullanimTipi')}
                                 options={options}
                                 getOptionLabel={(option) => option.label}
+                                disabled={lockedItems[2]}
                                 renderInput={(params) => (
                                     <TextField {...params} label="Kullanım Tipi" variant="outlined" InputLabelProps={{ shrink: true }} />
                                 )}
@@ -195,8 +284,11 @@ const AracBilgileri  = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Autocomplete
+                                value={formData.kullanimSekli}
+                                onChange={(event, value) => handleChange(event, value, 3, 'kullanimSekli')}
                                 options={options}
                                 getOptionLabel={(option) => option.label}
+                                disabled={lockedItems[3]}
                                 renderInput={(params) => (
                                     <TextField {...params} label="Kullanım Şekli" variant="outlined" InputLabelProps={{ shrink: true }}/>
                                 )}
@@ -204,8 +296,11 @@ const AracBilgileri  = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Autocomplete
+                                value={formData.model}
+                                onChange={(event, value) => handleChange(event, value, 4, 'model')}
                                 options={options}
                                 getOptionLabel={(option) => option.label}
+                                disabled={lockedItems[4]}
                                 renderInput={(params) => (
                                     <TextField {...params} label="Model" variant="outlined" InputLabelProps={{ shrink: true }} />
                                 )}
@@ -213,8 +308,11 @@ const AracBilgileri  = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Autocomplete
+                                value={formData.modelDetayi}
+                                onChange={(event, value) => handleChange(event, value, 5, 'modelDetayi')}
                                 options={options}
                                 getOptionLabel={(option) => option.label}
+                                disabled={lockedItems[5]}
                                 renderInput={(params) => (
                                     <TextField {...params} label="Model Detayı" variant="outlined" InputLabelProps={{ shrink: true }}/>
                                 )}
@@ -223,7 +321,137 @@ const AracBilgileri  = () => {
                     </Grid>
                 </Box>
 
+                <Box
+                    sx={{ 
+                        marginTop: '30px',
+                        paddingTop: 3,
+                        borderTop: 'solid',
+                        borderColor: '#e2edfd',
+                        height: '30px',}}
+                >
+                    
+                    <Grid container spacing={2}>
+                    
+                        <Grid item xs={6} md={6}>
+                            <TextField
+                                fullWidth
+                                id="motorNumarasi"
+                                label="Motor Numarası"
+                                variant="outlined"
+                                name="motorNumarasi"
+                                value={formData.motorNumarasi}
+                                onChange={handleFormChange}
+                                required
+                                sx={{ mb: 1 }}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={6} md={6}>
+                            <TextField
+                                    fullWidth
+                                    id="sasiNumarasi"
+                                    label="Şasi Numarası"
+                                    variant="outlined"
+                                    name="sasiNumarasi"
+                                    value={formData.sasiNumarasi}
+                                    onChange={handleFormChange}
+                                    required
+                                    sx={{ mb: 1 }}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                fullWidth
+                                id="tescilTarihi"
+                                label="Tescil Tarihi"
+                                variant="outlined"
+                                name="tescilTarihi"
+                                value={formData.tescilTarihi}
+                                onChange={handleDateChange}
+                                required
+                                sx={{ mb: 1 }}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
+                    </Grid>
+
+                </Box>
+                <Box
+                    sx={{
+                        marginTop: '120px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        borderTop: 'solid',
+                        borderColor: '#e2edfd',
+                        
+                    }}
+                >
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={formData.checkbox1}
+                                size="small"
+                                onChange={handleCheckboxChange}
+                                name="checkbox1"
+                                color="primary"
+                            />
+                        }
+                        label={
+                            <Typography color='black' variant='body' fontSize='0.9rem'>
+                                Karayolu Taşıma Kanunu kapsamında şehirler arası taşımacılık yapmaktayım.
+                            </Typography>
+                        }
+                        sx={{ mt: 3 }}
+                    />
+
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={formData.checkbox2}
+                                size="small"
+                                onChange={handleCheckboxChange}
+                                name="checkbox2"
+                                color="primary"
+                            />
+                        }
+                        label={
+                            <Typography color='black' variant='body' fontSize='0.9rem'>
+                                Aracımda hasar olmadığını beyan ve taahhüt ediyorum.
+                            </Typography>
+                        }
+                        sx={{ mt: 3 }}
+                        />
+                </Box>
+
+                
+
+
             </Box>
+
+            <Box 
+                    sx={{ 
+                        mt: 5,
+                        width: '42vw', 
+                        display: 'flex', 
+                        justifyContent: 'space-between', 
+                        
+                    }}
+                >
+                    <Button onClick={handleBackwardClick} variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+                        Geri
+                    </Button>
+                
+                    <Button disabled={!isFormValid()} onClick={handleForwardClick} variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+                        Devam
+                    </Button>
+                </Box>
 
         </Container>
 

@@ -8,6 +8,11 @@ body {
   font-family: 'Nunito Sans', sans-serif !important;
 }
 
+.MuiInputLabel-root.Mui-disabled {
+  color: grey !important;
+  font-weight: lighter !important;
+}
+
 .MuiInputBase-root {
   height: 46px;
   font-family: 'Nunito Sans', sans-serif !important;

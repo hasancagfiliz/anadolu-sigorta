@@ -301,8 +301,8 @@ const OdemeBilgileri = () => {
                                     onChange={handleChange}
                                     displayEmpty
                                 >
-                                    <MenuItem value="kredi">Kredi Kartı</MenuItem>
-                                    <MenuItem value="nakit">Nakit</MenuItem>
+                                    <MenuItem value="pesin">Peşin (12482 TL)</MenuItem>
+                                    <MenuItem value="taksit">2 Taksit (12482 TL)</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
