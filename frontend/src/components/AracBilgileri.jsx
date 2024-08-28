@@ -227,7 +227,7 @@ const AracBilgileri  = () => {
             <Box 
                 sx={{ 
                     height: '60vh',
-                    width: '80vw',
+                    width: '75vw',
                     border: 'solid',
                     borderColor: '#e2edfd',
                     borderWidth: '2px',

@@ -9,11 +9,13 @@ const OdemeBilgileri = () => {
         soyisim: '',
         kartnumarasi: '',
         expiry: '',
+        cvc: '',
         odemeTipi: '',
         checkbox1: '',
         checkbox2: '',
         checkbox3: '',
     });
+
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -52,7 +54,19 @@ const OdemeBilgileri = () => {
                 ...formData,
                 [name]: formattedValue
             });
-        } else {
+        }
+
+        else if (name === 'cvc') {
+            // Process value as needed, for example, remove non-digit characters
+            const updatedValue = value.replace(/\D/g, '');
+
+            setFormData({
+                ...formData,
+                [name]: updatedValue
+            });
+        }
+
+        else {
             setFormData({
                 ...formData,
                 [name]: type === 'checkbox' ? checked : value
@@ -285,6 +299,23 @@ const OdemeBilgileri = () => {
                                 onChange={handleChange}
                                 required
                                 inputProps={{ maxLength: 5,}}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                fullWidth
+                                id="cvc"
+                                label="Güvenlik Kodu"
+                                variant="outlined"
+                                name="cvc"
+                                value={formData.cvc}
+                                onChange={handleChange}
+                                required
+                                inputProps={{ maxLength: 3, }}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
