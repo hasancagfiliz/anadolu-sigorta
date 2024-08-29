@@ -11,14 +11,6 @@ C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Deb
 C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\WebAPI.csproj.CoreCompileInputs.cache
 C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\WebAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\WebAPI.sourcelink.json
-C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\staticwebassets.development.json
-C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\staticwebassets\msbuild.WebAPI.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\staticwebassets\msbuild.build.WebAPI.props
-C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.WebAPI.props
-C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.WebAPI.props
-C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\scopedcss\bundle\WebAPI.styles.css
 C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\WebAPI.dll
 C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\refint\WebAPI.dll
 C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\WebAPI.pdb
@@ -130,3 +122,11 @@ C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\bin\Deb
 C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\zeynep.gungor\Source\Repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\WebAPI.csproj.Up2Date
+C:\Users\zeynep.gungor\source\repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\WebAPI.RazorAssemblyInfo.cache
+C:\Users\zeynep.gungor\source\repos\hasancagfiliz\anadolu-sigorta\WebAPI\obj\Debug\net8.0\WebAPI.RazorAssemblyInfo.cs
+C:\Users\zeynep.gungor\source\repos\hasancagfiliz\anadolu-sigorta\WebAPI\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\zeynep.gungor\source\repos\hasancagfiliz\anadolu-sigorta\WebAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+C:\Users\zeynep.gungor\source\repos\hasancagfiliz\anadolu-sigorta\WebAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\Users\zeynep.gungor\source\repos\hasancagfiliz\anadolu-sigorta\WebAPI\bin\Debug\net8.0\Microsoft.CodeAnalysis.Razor.dll
+C:\Users\zeynep.gungor\source\repos\hasancagfiliz\anadolu-sigorta\WebAPI\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\zeynep.gungor\source\repos\hasancagfiliz\anadolu-sigorta\WebAPI\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
