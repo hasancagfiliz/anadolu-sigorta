@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace YourNamespace.Models
+namespace WebAPI.Models
 {
     public class Police
     {
+        [Key]
         [Required]
         public string PolTip { get; set; }
 

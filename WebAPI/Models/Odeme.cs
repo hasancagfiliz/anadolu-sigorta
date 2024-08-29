@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace YourNamespace.Models
+namespace WebAPI.Models
 {
-    public class Police
-    {   
+    public class Odeme
+    {
+        [Key]
         [Required]
         public string Isim { get; set; }
 
@@ -15,7 +16,6 @@ namespace YourNamespace.Models
 
         [Required]
         public string KulTar { get; set; }
-
 
     }
 }

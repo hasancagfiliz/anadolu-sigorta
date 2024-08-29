@@ -1,13 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace YourNamespace.Models
+namespace WebAPI.Models
 {
     public class User
     {
         [Key]
         [Required]
         [MaxLength(11)]
-        public string TcKimlikNo { get; set; }
+        public string TcKimlik_No { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -21,17 +21,17 @@ namespace YourNamespace.Models
         public string Eposta { get; set; }
 
         [Required]
-        public string CepTel { get; set; }
+        public string Cep_Tel { get; set; }
 
         [Required]
-        public string IlKodu { get; set; }
+        public string Il_Kodu { get; set; }
 
         [Required]
-        public string PlakaNumarasi { get; set; }
+        public string Plaka_Numarasi { get; set; }
 
-        public string RuhsatKodu { get; set; }
+        public string Ruhsat_Kodu { get; set; }
 
-        public string RuhsatNumarasi { get; set; }
+        public string Ruhsat_Numarasi { get; set; }
 
     }
 }
