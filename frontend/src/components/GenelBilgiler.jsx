@@ -6,8 +6,7 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
 
     const navigate = useNavigate();
 
-    const handleClick = (e) => {
-        handleSubmit(e);
+    const handleClick = () => {
         navigate('/2');
     }
     
@@ -38,39 +37,7 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
     };
     
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        const userPayload = {
-            TcKimlik_No: userFormData.tcKimlik,
-            Isim: userFormData.isim,
-            Soyisim: userFormData.soyisim,
-            Eposta: userFormData.ePosta,
-            Cep_Tel: userFormData.cepTelefonu,
-            Il_Kodu: userFormData.ilKodu,
-            Plaka_Numarasi: userFormData.plakaNumarasi,
-            Ruhsat_Kodu: userFormData.ruhsatKodu,
-            Ruhsat_Numarasi: userFormData.ruhsatNumarasi
-        };
-
-        // Send userFormData to the backend
-        fetch('http://localhost:5178/api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userPayload),
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                // Handle success
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                // Handle error
-            });
-    };
+    
 
     return (
         
@@ -172,7 +139,6 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
 
             <Box
                 component="form"
-                onSubmit={handleSubmit}
                 sx={{
                     alignSelf: 'center',
                     display: 'flex',
@@ -225,7 +191,7 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
                             InputProps={{
                                 placeholder: '', // Ensures no placeholder text appears
                             }}
-                            error={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(userFormData.isim)}  // Updated regex to include "ı"
+                            error={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(userFormData.isim)}
                             helperText={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(userFormData.isim) ? 'İsim sadece harflerden oluşmalıdır.' : ''}
                         />
                     </Grid>

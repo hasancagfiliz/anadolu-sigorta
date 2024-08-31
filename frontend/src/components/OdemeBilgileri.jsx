@@ -4,7 +4,7 @@ import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 import { useNavigate } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-const OdemeBilgileri = ({ odemeFormData, setOdemeFormData }) => {
+const OdemeBilgileri = ({ odemeFormData, setOdemeFormData, userFormData }) => {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -76,7 +76,74 @@ const OdemeBilgileri = ({ odemeFormData, setOdemeFormData }) => {
 
     const [open, setOpen] = useState(false);
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (e) => {
+        const handleUserSubmit = (e) => {
+
+            e.preventDefault();
+
+            const userPayload = {
+                TcKimlik_No: userFormData.tcKimlik,
+                Isim: userFormData.isim,
+                Soyisim: userFormData.soyisim,
+                Eposta: userFormData.ePosta,
+                Cep_Tel: userFormData.cepTelefonu,
+                Il_Kodu: userFormData.ilKodu,
+                Plaka_Numarasi: userFormData.plakaNumarasi,
+                Ruhsat_Kodu: userFormData.ruhsatKodu,
+                Ruhsat_Numarasi: userFormData.ruhsatNumarasi
+            };
+
+            fetch('http://localhost:5178/api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userPayload),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    // Handle success
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    // Handle error
+                });
+        };
+
+        const handleOdemeSubmit = (e) => {
+
+            e.preventDefault();
+
+            const odemePayload = {
+                Isim: odemeFormData.isim,
+                Soyisim: odemeFormData.soyisim,
+                Kart_No: odemeFormData.kartnumarasi,
+                Kul_Tar: odemeFormData.expiry,
+                CVC: odemeFormData.cvc,
+            };
+
+            fetch('http://localhost:5178/api/odeme', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(odemePayload),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    // Handle success
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    // Handle error
+                });
+        };
+
+        handleUserSubmit(e);
+        handleOdemeSubmit(e);
+
         setOpen(true);
     };
 

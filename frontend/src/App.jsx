@@ -56,7 +56,7 @@ const App = () => {
               <Route path="/1" element={<GenelBilgiler userFormData={userFormData} setUserFormData={setUserFormData} />} />
               <Route path="/2" element={<AracBilgileri aracFormData={aracFormData} setAracFormData={setAracFormData} />} />
               <Route path="/3" element={<PoliceIslemleri />} />
-              <Route path="/4" element={<OdemeBilgileri odemeFormData={odemeFormData} setOdemeFormData={setOdemeFormData} />} />
+              <Route path="/4" element={<OdemeBilgileri odemeFormData={odemeFormData} setOdemeFormData={setOdemeFormData} userFormData={userFormData} />} />
           </Routes>
       </Router>
   );
