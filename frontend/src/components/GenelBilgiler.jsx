@@ -21,6 +21,7 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
         if (userFormData.islemTipi === "option2") {
             return tcKimlik && isim && soyisim && ePosta && cepTelefonu && islemTipi && ilKodu && plakaNumarasi && checkbox1 && checkbox2;
         }
+        return false;
     };
 
 
@@ -163,13 +164,27 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
                             name="tcKimlik"
                             value={userFormData.tcKimlik}
                             onChange={handleChange}
-                            required
                             inputProps={{ maxLength: 11 }}
                             sx={{ mb: 1 }}
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                        
+                            error={
+                                userFormData.tcKimlik &&
+                                (
+                                    /[^0-9]/.test(userFormData.tcKimlik) ||
+                                    userFormData.tcKimlik.length !== 11
+                                )
+                            }
+                            helperText={
+                                userFormData.tcKimlik &&
+                                (
+                                    /[^0-9]/.test(userFormData.tcKimlik) ? 'Lütfen sadece rakam giriniz.' :
+                                            userFormData.tcKimlik.length !== 11 ? 'TC Kimlik numarası 11 haneli olmalıdır.' :
+                                                ''
+                                )
+                            }
+                            
                         />
                     </Grid>
 
@@ -182,14 +197,13 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
                             name="isim"
                             value={userFormData.isim}
                             onChange={handleChange}
-                            required
                             autoComplete="name"
                             sx={{ mb: 1 }}
                             InputLabelProps={{
-                                shrink: true,  // This keeps the label static above the text field
+                                shrink: true,
                             }}
                             InputProps={{
-                                placeholder: '', // Ensures no placeholder text appears
+                                placeholder: '',
                             }}
                             error={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(userFormData.isim)}
                             helperText={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(userFormData.isim) ? 'İsim sadece harflerden oluşmalıdır.' : ''}
@@ -206,7 +220,6 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
                             name="soyisim"
                             value={userFormData.soyisim}
                             onChange={handleChange}
-                            required
                             sx={{ mb: 1 }}
                             InputLabelProps={{
                                 shrink: true,  // This keeps the label static above the text field
@@ -228,7 +241,6 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
                             name="ePosta"
                             value={userFormData.ePosta}
                             onChange={handleChange}
-                            required
                             type="email"
                             sx={{ mb: 1 }}
                             InputLabelProps={{
@@ -249,7 +261,6 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
                             name="cepTelefonu"
                             value={userFormData.cepTelefonu}
                             onChange={handleChange}
-                            required
                             sx={{ mb: 1 }}
                             InputLabelProps={{
                                 shrink: true,  // This keeps the label static above the text field
@@ -286,7 +297,6 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
                                 name="islemTipi"
                                 value={userFormData.islemTipi}
                                 onChange={handleChange}
-                                required
                                 variant="outlined"
                                 sx={{ mb: 1 }}
                                 displayEmpty
@@ -317,7 +327,6 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
                                     label="İl Kodu"
                                     placeholder="34"
                                     variant="outlined"
-                                    required
                                     InputLabelProps={{ shrink: true }}  // Label stays on top
                                     sx={{ mb: 1 }}
                                 />
@@ -337,7 +346,6 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
                             placeholder='ABC123'
                             value={userFormData.plakaNumarasi}
                             onChange={handleChange}
-                            required
                             sx={{ mb: 1 }}
                             InputLabelProps={{
                                 shrink: true
@@ -366,7 +374,6 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
                                     name="ruhsatKodu"
                                     value={userFormData.ruhsatKodu}
                                     onChange={handleChange}
-                                    required
                                     sx={{ mb: 1 }}
                                     InputLabelProps={{ shrink: true }}
                                 />
@@ -381,7 +388,6 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
                                     name="ruhsatNumarasi"
                                     value={userFormData.ruhsatNumarasi}
                                     onChange={handleChange}
-                                    required
                                     sx={{ mb: 1 }}
                                     InputLabelProps={{ shrink: true }}
                                 />
