@@ -4,19 +4,7 @@ import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 import { useNavigate } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-const OdemeBilgileri = () => {
-    const [odemeFormData, setOdemeFormData] = useState({
-        isim: '',
-        soyisim: '',
-        kartnumarasi: '',
-        expiry: '',
-        cvc: '',
-        odemeTipi: '',
-        checkbox1: '',
-        checkbox2: '',
-        checkbox3: '',
-    });
-
+const OdemeBilgileri = ({ odemeFormData, setOdemeFormData }) => {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -74,8 +62,6 @@ const OdemeBilgileri = () => {
             });
         }
     };
-    
-    
 
     const isFormValid = () => {
         const { isim, soyisim, kartnumarasi, expiry, odemeTipi, checkbox1, checkbox2 } = odemeFormData;
@@ -87,7 +73,6 @@ const OdemeBilgileri = () => {
     const handleBackwardClick = () => {
         navigate('/3');
     }
-
 
     const [open, setOpen] = useState(false);
 

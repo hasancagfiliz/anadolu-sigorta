@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Autocomplete, Button, Grid, FormControl, FormControlLabel, Checkbox, InputLabel, MenuItem, Select, Box, Container, TextField, Typography } from "@mui/material";
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 
-const AracBilgileri  = () => {
+const AracBilgileri = ({ aracFormData, setAracFormData }) => {
     
     const navigate = useNavigate();
 
@@ -14,21 +14,6 @@ const AracBilgileri  = () => {
     const handleForwardClick = () => {
         navigate('/3');
     }
-    
-
-    const [aracFormData, setAracFormData] = useState({
-        modelYili: '',
-        marka: '',
-        kullanimTipi: '',
-        kullanimSekli: '',
-        model: '',
-        modelDetayi: '',
-        motorNumarasi: '',
-        sasiNumarasi: '',
-        tescilTarihi: '',
-        checkbox1: false,
-        checkbox2: false,
-    });
 
     const isFormValid = () => {
         const { modelYili, marka, kullanimTipi, kullanimSekli, model, modelDetayi, motorNumarasi, sasiNumarasi, tescilTarihi, checkbox1, checkbox2 } = aracFormData;

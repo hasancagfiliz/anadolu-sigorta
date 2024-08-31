@@ -22,15 +22,41 @@ const App = () => {
         checkbox2: false,
     });
 
+    const [aracFormData, setAracFormData] = useState({
+        modelYili: '',
+        marka: '',
+        kullanimTipi: '',
+        kullanimSekli: '',
+        model: '',
+        modelDetayi: '',
+        motorNumarasi: '',
+        sasiNumarasi: '',
+        tescilTarihi: '',
+        checkbox1: false,
+        checkbox2: false,
+    });
+
+    const [odemeFormData, setOdemeFormData] = useState({
+        isim: '',
+        soyisim: '',
+        kartnumarasi: '',
+        expiry: '',
+        cvc: '',
+        odemeTipi: '',
+        checkbox1: '',
+        checkbox2: '',
+        checkbox3: '',
+    });
+
 
   return (
       <Router>
           <Routes>
               <Route path="/" element={<GenelBilgiler userFormData={userFormData} setUserFormData={setUserFormData} />} />
               <Route path="/1" element={<GenelBilgiler userFormData={userFormData} setUserFormData={setUserFormData} />} />
-              <Route path="/2" element={<AracBilgileri />} />
+              <Route path="/2" element={<AracBilgileri aracFormData={aracFormData} setAracFormData={setAracFormData} />} />
               <Route path="/3" element={<PoliceIslemleri />} />
-              <Route path="/4" element={<OdemeBilgileri />} />
+              <Route path="/4" element={<OdemeBilgileri odemeFormData={odemeFormData} setOdemeFormData={setOdemeFormData} />} />
           </Routes>
       </Router>
   );
