@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Container, Grid, Box, MenuItem, InputLabel, Select, FormControl, FormControlLabel, Checkbox, Link, Typography, Autocomplete} from '@mui/material';
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
@@ -11,7 +11,7 @@ const GenelBilgiler = () => {
         navigate('/2');
     }
     
-    const [formData, setFormData] = useState({
+    const [userFormData, setUserFormData] = useState({
         tcKimlik: '',
         isim: '',
         soyisim: '',
@@ -29,11 +29,11 @@ const GenelBilgiler = () => {
     const ilKodlari = [...Array(81).keys()].map(num => String(num + 1).padStart(2, '0'));
 
     const isFormValid = () => {
-        const { tcKimlik, isim, soyisim, ePosta, cepTelefonu, islemTipi, ilKodu, plakaNumarasi, ruhsatKodu, ruhsatNumarasi, checkbox1, checkbox2 } = formData;
-        if (formData.islemTipi === "option1") {
+        const { tcKimlik, isim, soyisim, ePosta, cepTelefonu, islemTipi, ilKodu, plakaNumarasi, ruhsatKodu, ruhsatNumarasi, checkbox1, checkbox2 } = userFormData;
+        if (userFormData.islemTipi === "option1") {
             return tcKimlik && isim && soyisim && ePosta && cepTelefonu && islemTipi && ilKodu && plakaNumarasi && ruhsatKodu && ruhsatNumarasi && checkbox1 && checkbox2;
         }
-        if (formData.islemTipi === "option2") {
+        if (userFormData.islemTipi === "option2") {
             return tcKimlik && isim && soyisim && ePosta && cepTelefonu && islemTipi && ilKodu && plakaNumarasi && checkbox1 && checkbox2;
         }
     };
@@ -45,8 +45,8 @@ const GenelBilgiler = () => {
         // Convert value to uppercase if the field is 'plakaNumarasi'
         const updatedValue = name === 'plakaNumarasi' ? value.toUpperCase() : value;
     
-        setFormData({
-            ...formData,
+        setUserFormData({
+            ...userFormData,
             [name]: type === 'checkbox' ? checked : updatedValue
         });
     };
@@ -56,18 +56,18 @@ const GenelBilgiler = () => {
         e.preventDefault();
 
         const userPayload = {
-            TcKimlik_No: formData.tcKimlik,
-            Isim: formData.isim,
-            Soyisim: formData.soyisim,
-            Eposta: formData.ePosta,
-            Cep_Tel: formData.cepTelefonu,
-            Il_Kodu: formData.ilKodu,
-            Plaka_Numarasi: formData.plakaNumarasi,
-            Ruhsat_Kodu: formData.ruhsatKodu,
-            Ruhsat_Numarasi: formData.ruhsatNumarasi
+            TcKimlik_No: userFormData.tcKimlik,
+            Isim: userFormData.isim,
+            Soyisim: userFormData.soyisim,
+            Eposta: userFormData.ePosta,
+            Cep_Tel: userFormData.cepTelefonu,
+            Il_Kodu: userFormData.ilKodu,
+            Plaka_Numarasi: userFormData.plakaNumarasi,
+            Ruhsat_Kodu: userFormData.ruhsatKodu,
+            Ruhsat_Numarasi: userFormData.ruhsatNumarasi
         };
 
-        // Send formData to the backend
+        // Send userFormData to the backend
         fetch('http://localhost:5178/api/users', {
             method: 'POST',
             headers: {
@@ -92,7 +92,6 @@ const GenelBilgiler = () => {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                //justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: "#fff"
             }}
@@ -210,12 +209,13 @@ const GenelBilgiler = () => {
                             label="TC Kimlik Numarası"
                             variant="outlined"
                             name="tcKimlik"
-                            value={formData.tcKimlik}
+                            value={userFormData.tcKimlik}
                             onChange={handleChange}
                             required
+                            inputProps={{ maxLength: 11 }}
                             sx={{ mb: 1 }}
                             InputLabelProps={{
-                                shrink: true,  // This keeps the label static above the text field
+                                shrink: true,
                             }}
                         
                         />
@@ -228,7 +228,7 @@ const GenelBilgiler = () => {
                             label="İsim"
                             variant="outlined"
                             name="isim"
-                            value={formData.isim}
+                            value={userFormData.isim}
                             onChange={handleChange}
                             required
                             autoComplete="name"
@@ -239,8 +239,8 @@ const GenelBilgiler = () => {
                             InputProps={{
                                 placeholder: '', // Ensures no placeholder text appears
                             }}
-                            error={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(formData.isim)}  // Updated regex to include "ı"
-                            helperText={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(formData.isim) ? 'İsim sadece harflerden oluşmalıdır.' : ''}
+                            error={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(userFormData.isim)}  // Updated regex to include "ı"
+                            helperText={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(userFormData.isim) ? 'İsim sadece harflerden oluşmalıdır.' : ''}
                         />
                     </Grid>
 
@@ -252,7 +252,7 @@ const GenelBilgiler = () => {
                             label="Soyisim"
                             variant="outlined"
                             name="soyisim"
-                            value={formData.soyisim}
+                            value={userFormData.soyisim}
                             onChange={handleChange}
                             required
                             sx={{ mb: 1 }}
@@ -262,8 +262,8 @@ const GenelBilgiler = () => {
                             InputProps={{
                                 placeholder: '', // Ensures no placeholder text appears
                             }}
-                            error={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(formData.soyisim)}  // Updated regex to include "ı"
-                            helperText={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(formData.soyisim) ? 'Soyisim sadece harflerden oluşmalıdır.' : ''}
+                            error={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(userFormData.soyisim)}  // Updated regex to include "ı"
+                            helperText={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(userFormData.soyisim) ? 'Soyisim sadece harflerden oluşmalıdır.' : ''}
                         />
                     </Grid>
 
@@ -274,7 +274,7 @@ const GenelBilgiler = () => {
                             label="E-Posta Adresi"
                             variant="outlined"
                             name="ePosta"
-                            value={formData.ePosta}
+                            value={userFormData.ePosta}
                             onChange={handleChange}
                             required
                             type="email"
@@ -282,8 +282,8 @@ const GenelBilgiler = () => {
                             InputLabelProps={{
                                 shrink: true,  // This keeps the label static above the text field
                             }}
-                            error={formData.ePosta && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.ePosta)}  // Validates only if ePosta is not empty
-                            helperText={formData.ePosta && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.ePosta) ? 'Geçerli bir e-posta adresi girin.' : ''}
+                            error={userFormData.ePosta && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(userFormData.ePosta)}  // Validates only if ePosta is not empty
+                            helperText={userFormData.ePosta && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(userFormData.ePosta) ? 'Geçerli bir e-posta adresi girin.' : ''}
                         />
                     </Grid>
 
@@ -295,7 +295,7 @@ const GenelBilgiler = () => {
                             label="Cep Telefonu"
                             variant="outlined"
                             name="cepTelefonu"
-                            value={formData.cepTelefonu}
+                            value={userFormData.cepTelefonu}
                             onChange={handleChange}
                             required
                             sx={{ mb: 1 }}
@@ -304,19 +304,19 @@ const GenelBilgiler = () => {
                             }}
                             inputProps={{ maxLength: 10 }}  // Limits the input to 10 digits
                             error={
-                                formData.cepTelefonu &&
+                                userFormData.cepTelefonu &&
                                 (
-                                    /[^0-9]/.test(formData.cepTelefonu) ||
-                                    (formData.cepTelefonu.length === 10 && formData.cepTelefonu.startsWith('0')) ||
-                                    formData.cepTelefonu.length !== 10
+                                    /[^0-9]/.test(userFormData.cepTelefonu) ||
+                                    (userFormData.cepTelefonu.length === 10 && userFormData.cepTelefonu.startsWith('0')) ||
+                                    userFormData.cepTelefonu.length !== 10
                                 )
                             }
                             helperText={
-                                formData.cepTelefonu &&
+                                userFormData.cepTelefonu &&
                                 (
-                                    /[^0-9]/.test(formData.cepTelefonu) ? 'Lütfen sadece rakam giriniz.' :
-                                    (formData.cepTelefonu.startsWith('0')) ? 'Cep telefonu 0 ile başlamamalıdır.' :
-                                    formData.cepTelefonu.length !== 10 ? 'Cep telefonu 10 haneli olmalıdır.' :
+                                    /[^0-9]/.test(userFormData.cepTelefonu) ? 'Lütfen sadece rakam giriniz.' :
+                                    (userFormData.cepTelefonu.startsWith('0')) ? 'Cep telefonu 0 ile başlamamalıdır.' :
+                                    userFormData.cepTelefonu.length !== 10 ? 'Cep telefonu 10 haneli olmalıdır.' :
                                     ''
                                 )
                             }
@@ -332,7 +332,7 @@ const GenelBilgiler = () => {
                                 id="islemTipi"
                                 label="İşlem Tipi"
                                 name="islemTipi"
-                                value={formData.islemTipi}
+                                value={userFormData.islemTipi}
                                 onChange={handleChange}
                                 required
                                 variant="outlined"
@@ -352,10 +352,10 @@ const GenelBilgiler = () => {
                             labelId="ilKodu-label"
                             id="ilKodu"
                             options={ilKodlari}
-                            value={formData.ilKodu}
+                            value={userFormData.ilKodu}
                             onChange={(event, newValue) => {
-                                setFormData({
-                                    ...formData,
+                                setUserFormData({
+                                    ...userFormData,
                                     ilKodu: newValue || ''
                                 });
                             }}
@@ -383,7 +383,7 @@ const GenelBilgiler = () => {
                             variant="outlined"
                             name="plakaNumarasi"
                             placeholder='ABC123'
-                            value={formData.plakaNumarasi}
+                            value={userFormData.plakaNumarasi}
                             onChange={handleChange}
                             required
                             sx={{ mb: 1 }}
@@ -391,19 +391,19 @@ const GenelBilgiler = () => {
                                 shrink: true
                             }}
                             error={
-                                formData.plakaNumarasi &&
-                                (!/^[A-Z]{0,3}[0-9]{0,4}$/.test(formData.plakaNumarasi) || /[çÇşŞğĞüÜöÖıİ]/.test(formData.plakaNumarasi))  // Validates format and rejects Turkish characters
+                                userFormData.plakaNumarasi &&
+                                (!/^[A-Z]{0,3}[0-9]{0,4}$/.test(userFormData.plakaNumarasi) || /[çÇşŞğĞüÜöÖıİ]/.test(userFormData.plakaNumarasi))  // Validates format and rejects Turkish characters
                             }
                             helperText={
-                                formData.plakaNumarasi &&
-                                /[çÇşŞğĞüÜöÖıİ]/.test(formData.plakaNumarasi) ? 'Türkçe karakter kullanmayınız.' :
-                                !/^[A-Z]{0,3}[0-9]{0,4}$/.test(formData.plakaNumarasi) ? 'Format ABC123 şeklinde olmalıdır.' : ''
+                                userFormData.plakaNumarasi &&
+                                /[çÇşŞğĞüÜöÖıİ]/.test(userFormData.plakaNumarasi) ? 'Türkçe karakter kullanmayınız.' :
+                                !/^[A-Z]{0,3}[0-9]{0,4}$/.test(userFormData.plakaNumarasi) ? 'Format ABC123 şeklinde olmalıdır.' : ''
                             }
                         />
                     </Grid>
 
                     {/* Display additional fields conditionally */}
-                    {formData.islemTipi === "option1" && (
+                    {userFormData.islemTipi === "option1" && (
                         <>
                             <Grid item xs={12} md={6}>
                                 <TextField
@@ -412,7 +412,7 @@ const GenelBilgiler = () => {
                                     label="Ruhsat Kodu"
                                     variant="outlined"
                                     name="ruhsatKodu"
-                                    value={formData.ruhsatKodu}
+                                    value={userFormData.ruhsatKodu}
                                     onChange={handleChange}
                                     required
                                     sx={{ mb: 1 }}
@@ -427,7 +427,7 @@ const GenelBilgiler = () => {
                                     label="Ruhsat Numarası"
                                     variant="outlined"
                                     name="ruhsatNumarasi"
-                                    value={formData.ruhsatNumarasi}
+                                    value={userFormData.ruhsatNumarasi}
                                     onChange={handleChange}
                                     required
                                     sx={{ mb: 1 }}
@@ -442,7 +442,7 @@ const GenelBilgiler = () => {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            checked={formData.checkbox1}
+                            checked={userFormData.checkbox1}
                             size="small"
                             onChange={handleChange}
                             name="checkbox1"
@@ -463,7 +463,7 @@ const GenelBilgiler = () => {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            checked={formData.checkbox2}
+                            checked={userFormData.checkbox2}
                             size="small"
                             onChange={handleChange}
                             name="checkbox2"

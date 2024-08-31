@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TextField, Button, Dialog, DialogContent, DialogActions, Container, Grid, Box, MenuItem, InputLabel, Select, FormControl, FormControlLabel, Checkbox, Link, Typography } from '@mui/material';
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 import { useNavigate } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const OdemeBilgileri = () => {
-    const [formData, setFormData] = useState({
+    const [odemeFormData, setOdemeFormData] = useState({
         isim: '',
         soyisim: '',
         kartnumarasi: '',
@@ -33,8 +33,8 @@ const OdemeBilgileri = () => {
                 formattedValue = numericValue;
             }
     
-            setFormData({
-                ...formData,
+            setOdemeFormData({
+                ...odemeFormData,
                 [name]: formattedValue
             });
         } else if (name === 'kartnumarasi') {
@@ -51,8 +51,8 @@ const OdemeBilgileri = () => {
                 formattedValue = numericValue;
             }
     
-            setFormData({
-                ...formData,
+            setOdemeFormData({
+                ...odemeFormData,
                 [name]: formattedValue
             });
         }
@@ -61,15 +61,15 @@ const OdemeBilgileri = () => {
             // Process value as needed, for example, remove non-digit characters
             const updatedValue = value.replace(/\D/g, '');
 
-            setFormData({
-                ...formData,
+            setOdemeFormData({
+                ...odemeFormData,
                 [name]: updatedValue
             });
         }
 
         else {
-            setFormData({
-                ...formData,
+            setOdemeFormData({
+                ...odemeFormData,
                 [name]: type === 'checkbox' ? checked : value
             });
         }
@@ -78,7 +78,7 @@ const OdemeBilgileri = () => {
     
 
     const isFormValid = () => {
-        const { isim, soyisim, kartnumarasi, expiry, odemeTipi, checkbox1, checkbox2 } = formData;
+        const { isim, soyisim, kartnumarasi, expiry, odemeTipi, checkbox1, checkbox2 } = odemeFormData;
         return isim && soyisim && kartnumarasi && expiry && odemeTipi && checkbox1 && checkbox2;
     };
 
@@ -256,14 +256,14 @@ const OdemeBilgileri = () => {
                                 label="İsim"
                                 variant="outlined"
                                 name="isim"
-                                value={formData.isim}
+                                value={odemeFormData.isim}
                                 onChange={handleChange}
                                 required
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-                                error={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(formData.isim)}  // Updated regex to include "ı"
-                                helperText={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(formData.isim) ? 'İsim sadece harflerden oluşmalıdır.' : ''}
+                                error={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(odemeFormData.isim)}  // Updated regex to include "ı"
+                                helperText={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(odemeFormData.isim) ? 'İsim sadece harflerden oluşmalıdır.' : ''}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -273,14 +273,14 @@ const OdemeBilgileri = () => {
                                 label="Soyisim"
                                 variant="outlined"
                                 name="soyisim"
-                                value={formData.soyisim}
+                                value={odemeFormData.soyisim}
                                 onChange={handleChange}
                                 required
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-                                error={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(formData.soyisim)}  // Updated regex to include "ı"
-                                helperText={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(formData.soyisim) ? 'İsim sadece harflerden oluşmalıdır.' : ''}
+                                error={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(odemeFormData.soyisim)}  // Updated regex to include "ı"
+                                helperText={!/^[a-zA-ZğüşöçİĞÜŞÖÇı\s]*$/.test(odemeFormData.soyisim) ? 'İsim sadece harflerden oluşmalıdır.' : ''}
                             />
                         </Grid>
                         <Grid item xs={12} md={12}>
@@ -290,7 +290,7 @@ const OdemeBilgileri = () => {
                                 label="Kart Numarası"
                                 variant="outlined"
                                 name="kartnumarasi"
-                                value={formData.kartnumarasi}
+                                value={odemeFormData.kartnumarasi}
                                 onChange={handleChange}
                                 required
                                 inputProps={{ maxLength: 19,}}
@@ -308,7 +308,7 @@ const OdemeBilgileri = () => {
                                 label="AA/YY"
                                 variant="outlined"
                                 name="expiry"
-                                value={formData.expiry}
+                                value={odemeFormData.expiry}
                                 onChange={handleChange}
                                 required
                                 inputProps={{ maxLength: 5,}}
@@ -325,11 +325,11 @@ const OdemeBilgileri = () => {
                                 label="Güvenlik Kodu"
                                 variant="outlined"
                                 name="cvc"
-                                value={formData.cvc}
+                                value={odemeFormData.cvc}
                                 onChange={handleChange}
                                 required
                                 inputProps={{
-                                    maxLength: formData.kartnumarasi.length === 17 ? 4 : formData.kartnumarasi.length === 19 ? 3 : undefined,
+                                    maxLength: odemeFormData.kartnumarasi.length === 17 ? 4 : odemeFormData.kartnumarasi.length === 19 ? 3 : undefined,
                                 }}
                                 InputLabelProps={{
                                     shrink: true,
@@ -343,7 +343,7 @@ const OdemeBilgileri = () => {
                                     labelId="odemeTipi-label"
                                     label="odemeTipi"
                                     name="odemeTipi"
-                                    value={formData.odemeTipi}
+                                    value={odemeFormData.odemeTipi}
                                     onChange={handleChange}
                                     displayEmpty
                                 >
@@ -443,12 +443,12 @@ const OdemeBilgileri = () => {
                                 letterSpacing: '0.1rem',
                             }}
                         >
-                            {formData.kartnumarasi}
+                            {odemeFormData.kartnumarasi}
                             <Typography sx={{fontSize: '1rem',} }>
-                                {formData.expiry}
+                                {odemeFormData.expiry}
                             </Typography>
                             <Typography sx={{ fontSize: '1rem', }}>
-                                {formData.isim} {' '} {formData.soyisim}
+                                {odemeFormData.isim} {' '} {odemeFormData.soyisim}
                             </Typography>
                         </Box>
                     </Box>
@@ -465,7 +465,7 @@ const OdemeBilgileri = () => {
                         }}
                     >
                         <FormControlLabel
-                            control={<Checkbox checked={formData.checkbox1} name="checkbox1" onChange={handleChange} size="small"/>}
+                            control={<Checkbox checked={odemeFormData.checkbox1} name="checkbox1" onChange={handleChange} size="small"/>}
                             label={
                                 <span>
                                     <Link href="#">Bilgilendirme Formunu</Link> okudum, onaylıyorum.
@@ -474,7 +474,7 @@ const OdemeBilgileri = () => {
                             sx={{ marginBottom: '16px' }}
                         />
                         <FormControlLabel
-                            control={<Checkbox checked={formData.checkbox2} name="checkbox2" onChange={handleChange} size="small"/>}
+                            control={<Checkbox checked={odemeFormData.checkbox2} name="checkbox2" onChange={handleChange} size="small"/>}
                             label={
                                 <span>
                                     <Link href="#">Mesafeli Satış Sözleşmesini</Link> okudum, onaylıyorum.
@@ -483,7 +483,7 @@ const OdemeBilgileri = () => {
                             sx={{ marginBottom: '16px' }} 
                         />
                         <FormControlLabel
-                            control={<Checkbox checked={formData.checkbox3} name="checkbox3" onChange={handleChange} size="small"/>}
+                            control={<Checkbox checked={odemeFormData.checkbox3} name="checkbox3" onChange={handleChange} size="small"/>}
                             label={
                                 <span>
                                     Kredi Kartı bilgilerimin sonraki işlemlerim için kullanılması amacıyla{' '}

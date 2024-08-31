@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebAPI.Models
 {
@@ -29,8 +30,10 @@ namespace WebAPI.Models
         [Required]
         public string Plaka_Numarasi { get; set; }
 
+        [AllowNull]
         public string Ruhsat_Kodu { get; set; }
 
+        [AllowNull]
         public string Ruhsat_Numarasi { get; set; }
 
     }

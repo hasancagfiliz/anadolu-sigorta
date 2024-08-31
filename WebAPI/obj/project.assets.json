@@ -10201,11 +10201,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\zeynep.gungor\\source\\repos\\hasancagfiliz\\anadolu-sigorta\\WebAPI\\WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\zeynep.gungor\\Source\\Repos\\hasancagfiliz\\anadolu-sigorta\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "C:\\Users\\zeynep.gungor\\source\\repos\\hasancagfiliz\\anadolu-sigorta\\WebAPI\\WebAPI.csproj",
+      "projectPath": "C:\\Users\\zeynep.gungor\\Source\\Repos\\hasancagfiliz\\anadolu-sigorta\\WebAPI\\WebAPI.csproj",
       "packagesPath": "C:\\Users\\zeynep.gungor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\zeynep.gungor\\source\\repos\\hasancagfiliz\\anadolu-sigorta\\WebAPI\\obj\\",
+      "outputPath": "C:\\Users\\zeynep.gungor\\Source\\Repos\\hasancagfiliz\\anadolu-sigorta\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\zeynep.gungor\\AppData\\Roaming\\NuGet\\NuGet.Config",

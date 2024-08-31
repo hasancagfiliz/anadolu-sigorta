@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Autocomplete, Button, Grid, FormControl, FormControlLabel, Checkbox, InputLabel, MenuItem, Select, Box, Container, TextField, Typography } from "@mui/material";
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
@@ -16,7 +16,7 @@ const AracBilgileri  = () => {
     }
     
 
-    const [formData, setFormData] = useState({
+    const [aracFormData, setAracFormData] = useState({
         modelYili: '',
         marka: '',
         kullanimTipi: '',
@@ -31,7 +31,7 @@ const AracBilgileri  = () => {
     });
 
     const isFormValid = () => {
-        const { modelYili, marka, kullanimTipi, kullanimSekli, model, modelDetayi, motorNumarasi, sasiNumarasi, tescilTarihi, checkbox1, checkbox2 } = formData;
+        const { modelYili, marka, kullanimTipi, kullanimSekli, model, modelDetayi, motorNumarasi, sasiNumarasi, tescilTarihi, checkbox1, checkbox2 } = aracFormData;
     
         // Check for required fields based on conditions
         return modelYili && marka && kullanimTipi && kullanimSekli && model && modelDetayi && motorNumarasi && sasiNumarasi && tescilTarihi && checkbox1 && checkbox2;
@@ -69,8 +69,8 @@ const AracBilgileri  = () => {
         // Format the date input
         const formattedValue = name === 'tescilTarihi' ? formatDate(value) : value;
     
-        setFormData({
-            ...formData,
+        setAracFormData({
+            ...aracFormData,
             [name]: formattedValue
         });
     };
@@ -81,24 +81,24 @@ const AracBilgileri  = () => {
         // Convert value to uppercase if the field is 'plakaNumarasi'
         const updatedValue = name === 'plakaNumarasi' ? value.toUpperCase() : value;
     
-        setFormData({
-            ...formData,
+        setAracFormData({
+            ...aracFormData,
             [name]: type === 'checkbox' ? checked : updatedValue
         });
     };
     
     const handleFormChange = (event) => {
         const { name, value } = event.target;
-        setFormData({
-            ...formData,
+        setAracFormData({
+            ...aracFormData,
             [name]: value
         });
     };
 
     const handleChange = (event, value, index, field) => {
         const newValue = value || (event ? event.target.value : '');
-        setFormData({
-            ...formData,
+        setAracFormData({
+            ...aracFormData,
             [field]: newValue
         });
     
@@ -110,12 +110,6 @@ const AracBilgileri  = () => {
         }
     };
     
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Handle form submission
-        console.log(formData);
-    };
 
     const options = [
         { label: 'Option 1', value: 1 },
@@ -242,7 +236,7 @@ const AracBilgileri  = () => {
                             <FormControl fullWidth variant="outlined">
                                 <InputLabel id="year-select-label" shrink>Model Yılı</InputLabel>
                                 <Select
-                                value={formData.modelYili}
+                                value={aracFormData.modelYili}
                                 displayEmpty
                                 labelId="year-select-label"
                                 id="year-select"
@@ -260,7 +254,7 @@ const AracBilgileri  = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Autocomplete
-                                value={formData.marka}
+                                value={aracFormData.marka}
                                 onChange={(event, value) => handleChange(event, value, 1, 'marka')}
                                 options={options}
                                 getOptionLabel={(option) => option.label}
@@ -272,7 +266,7 @@ const AracBilgileri  = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Autocomplete
-                                value={formData.kullanimTipi}
+                                value={aracFormData.kullanimTipi}
                                 onChange={(event, value) => handleChange(event, value, 2, 'kullanimTipi')}
                                 options={options}
                                 getOptionLabel={(option) => option.label}
@@ -284,7 +278,7 @@ const AracBilgileri  = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Autocomplete
-                                value={formData.kullanimSekli}
+                                value={aracFormData.kullanimSekli}
                                 onChange={(event, value) => handleChange(event, value, 3, 'kullanimSekli')}
                                 options={options}
                                 getOptionLabel={(option) => option.label}
@@ -296,7 +290,7 @@ const AracBilgileri  = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Autocomplete
-                                value={formData.model}
+                                value={aracFormData.model}
                                 onChange={(event, value) => handleChange(event, value, 4, 'model')}
                                 options={options}
                                 getOptionLabel={(option) => option.label}
@@ -308,7 +302,7 @@ const AracBilgileri  = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Autocomplete
-                                value={formData.modelDetayi}
+                                value={aracFormData.modelDetayi}
                                 onChange={(event, value) => handleChange(event, value, 5, 'modelDetayi')}
                                 options={options}
                                 getOptionLabel={(option) => option.label}
@@ -339,7 +333,7 @@ const AracBilgileri  = () => {
                                 label="Motor Numarası"
                                 variant="outlined"
                                 name="motorNumarasi"
-                                value={formData.motorNumarasi}
+                                value={aracFormData.motorNumarasi}
                                 onChange={handleFormChange}
                                 required
                                 sx={{ mb: 1 }}
@@ -355,7 +349,7 @@ const AracBilgileri  = () => {
                                     label="Şasi Numarası"
                                     variant="outlined"
                                     name="sasiNumarasi"
-                                    value={formData.sasiNumarasi}
+                                    value={aracFormData.sasiNumarasi}
                                     onChange={handleFormChange}
                                     required
                                     sx={{ mb: 1 }}
@@ -371,7 +365,7 @@ const AracBilgileri  = () => {
                                 label="Tescil Tarihi"
                                 variant="outlined"
                                 name="tescilTarihi"
-                                value={formData.tescilTarihi}
+                                value={aracFormData.tescilTarihi}
                                 onChange={handleDateChange}
                                 required
                                 sx={{ mb: 1 }}
@@ -396,7 +390,7 @@ const AracBilgileri  = () => {
                     <FormControlLabel
                         control={
                             <Checkbox
-                                checked={formData.checkbox1}
+                                checked={aracFormData.checkbox1}
                                 size="small"
                                 onChange={handleCheckboxChange}
                                 name="checkbox1"
@@ -414,7 +408,7 @@ const AracBilgileri  = () => {
                     <FormControlLabel
                         control={
                             <Checkbox
-                                checked={formData.checkbox2}
+                                checked={aracFormData.checkbox2}
                                 size="small"
                                 onChange={handleCheckboxChange}
                                 name="checkbox2"
