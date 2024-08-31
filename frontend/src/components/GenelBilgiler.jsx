@@ -6,7 +6,8 @@ import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 const GenelBilgiler = () => {
     const navigate = useNavigate();
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        handleSubmit(e);
         navigate('/2');
     }
     
@@ -53,13 +54,26 @@ const GenelBilgiler = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const userPayload = {
+            TcKimlik_No: formData.tcKimlik,
+            Isim: formData.isim,
+            Soyisim: formData.soyisim,
+            Eposta: formData.ePosta,
+            Cep_Tel: formData.cepTelefonu,
+            Il_Kodu: formData.ilKodu,
+            Plaka_Numarasi: formData.plakaNumarasi,
+            Ruhsat_Kodu: formData.ruhsatKodu,
+            Ruhsat_Numarasi: formData.ruhsatNumarasi
+        };
+
         // Send formData to the backend
-        fetch('http://localhost:5000/api/users', {
+        fetch('http://localhost:5178/api/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(userPayload),
         })
             .then(response => response.json())
             .then(data => {

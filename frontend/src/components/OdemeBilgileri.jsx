@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Grid, Box, MenuItem, InputLabel, Select, FormControl, FormControlLabel, Checkbox, Link, Typography } from '@mui/material';
+import { TextField, Button, Dialog, DialogContent, DialogActions, Container, Grid, Box, MenuItem, InputLabel, Select, FormControl, FormControlLabel, Checkbox, Link, Typography } from '@mui/material';
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 import { useNavigate } from 'react-router-dom';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const OdemeBilgileri = () => {
     const [formData, setFormData] = useState({
@@ -86,6 +87,18 @@ const OdemeBilgileri = () => {
     const handleBackwardClick = () => {
         navigate('/3');
     }
+
+
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        // You can also add any additional logic here, like navigating to a different page
+    };
 
     return (
         <Container
@@ -315,7 +328,9 @@ const OdemeBilgileri = () => {
                                 value={formData.cvc}
                                 onChange={handleChange}
                                 required
-                                inputProps={{ maxLength: 3, }}
+                                inputProps={{
+                                    maxLength: formData.kartnumarasi.length === 17 ? 4 : formData.kartnumarasi.length === 19 ? 3 : undefined,
+                                }}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -350,10 +365,52 @@ const OdemeBilgileri = () => {
                         <Button onClick={handleBackwardClick} variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
                             Geri
                         </Button>
-                    
-                        <Button disabled={!isFormValid()} variant="contained" size="large" sx={{ backgroundColor: '#018fec', width: '200px', borderRadius: '20px', fontFamily: 'Nunito Sans', textTransform: 'capitalize'}}>
+
+                        {/*Ödeme Yap Butonu*/}
+
+                        <Button
+                            onClick={handleClickOpen}
+                            variant="contained"
+                            size="large"
+                            sx={{
+                                backgroundColor: '#018fec',
+                                width: '200px',
+                                borderRadius: '20px',
+                                fontFamily: 'Nunito Sans',
+                                textTransform: 'capitalize'
+                            }}
+                            disabled={!isFormValid()}
+                        >
                             Ödeme Yap
                         </Button>
+
+                        <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="success-dialog-title"
+                            aria-describedby="success-dialog-description"
+                            maxWidth="sm" // Change this to "md" or "lg" for larger width
+                            fullWidth // Makes the dialog take the full width of the screen, respecting the maxWidth
+                            sx={{
+                                '& .MuiDialog-paper': {
+                                    width: '80%', // Adjust this value to control width (relative to the screen size)
+                                    maxWidth: '800px', // Set the maximum width (absolute value)
+                                },
+                            }}
+                        >
+                            <DialogContent sx={{ textAlign: 'center', padding: '40px' }}> {/* Adjust padding here if needed */}
+                                <CheckCircleIcon sx={{ fontSize: '80px', color: 'green', marginBottom: '30px' }} /> {/* Increased icon size */}
+                                <Typography variant="h5" id="success-dialog-title"> {/* Increased font size */}
+                                    Ödeme Başarılı
+                                </Typography>
+                            </DialogContent>
+                            <DialogActions sx={{ justifyContent: 'center' }}>
+                                <Button onClick={handleClose} color="primary" variant="contained" autoFocus sx={{ textTransform: 'capitalize' }} >
+                                    Tamam
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+
                     </Box>
                 </Box>
                     
@@ -387,6 +444,12 @@ const OdemeBilgileri = () => {
                             }}
                         >
                             {formData.kartnumarasi}
+                            <Typography sx={{fontSize: '1rem',} }>
+                                {formData.expiry}
+                            </Typography>
+                            <Typography sx={{ fontSize: '1rem', }}>
+                                {formData.isim} {' '} {formData.soyisim}
+                            </Typography>
                         </Box>
                     </Box>
 
