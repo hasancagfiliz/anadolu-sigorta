@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Container, Grid, Box, MenuItem, InputLabel, Select, FormControl, FormControlLabel, Checkbox, Link, Typography, Autocomplete} from '@mui/material';
 import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 
-const GenelBilgiler = () => {
+const GenelBilgiler = ({ userFormData, setUserFormData }) => {
+
     const navigate = useNavigate();
 
     const handleClick = (e) => {
@@ -11,20 +11,6 @@ const GenelBilgiler = () => {
         navigate('/2');
     }
     
-    const [userFormData, setUserFormData] = useState({
-        tcKimlik: '',
-        isim: '',
-        soyisim: '',
-        ePosta: '',
-        cepTelefonu: '',
-        islemTipi: '',
-        ilKodu: '',
-        plakaNumarasi: '',
-        ruhsatKodu: '',
-        ruhsatNumarasi: '',
-        checkbox1: false,
-        checkbox2: false,
-    });
 
     const ilKodlari = [...Array(81).keys()].map(num => String(num + 1).padStart(2, '0'));
 
