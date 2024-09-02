@@ -36,6 +36,11 @@ const App = () => {
         checkbox2: false,
     });
 
+    const [polFormData, setPolFormData] = useState({
+        radioSelection: '',
+        polID: '',
+    });
+
     const [odemeFormData, setOdemeFormData] = useState({
         isim: '',
         soyisim: '',
@@ -55,8 +60,8 @@ const App = () => {
               <Route path="/" element={<GenelBilgiler userFormData={userFormData} setUserFormData={setUserFormData} />} />
               <Route path="/1" element={<GenelBilgiler userFormData={userFormData} setUserFormData={setUserFormData} />} />
               <Route path="/2" element={<AracBilgileri aracFormData={aracFormData} setAracFormData={setAracFormData} />} />
-              <Route path="/3" element={<PoliceIslemleri />} />
-              <Route path="/4" element={<OdemeBilgileri odemeFormData={odemeFormData} setOdemeFormData={setOdemeFormData} userFormData={userFormData} />} />
+              <Route path="/3" element={<PoliceIslemleri polFormData={polFormData} setPolFormData={setPolFormData} />} />
+              <Route path="/4" element={<OdemeBilgileri odemeFormData={odemeFormData} setOdemeFormData={setOdemeFormData} userFormData={userFormData} polFormData={polFormData} />} />
           </Routes>
       </Router>
   );

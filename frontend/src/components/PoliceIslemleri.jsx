@@ -18,9 +18,13 @@ const data = [
 
 const InsuranceTable = () => {
     const [selectedValue, setSelectedValue] = React.useState('base');
+    const [radioSelection, setRadioSelection] = React.useState(1);
 
     const handleChange = (event) => {
-        setSelectedValue(event.target.value);
+        const value = event.target.value;
+        // Update selectedValue and radioSelection based on the selected radio button
+        setSelectedValue(value);
+        setRadioSelection(value === 'base' ? 1 : 2);
     };
 
     return (
@@ -121,8 +125,21 @@ const InsuranceTable = () => {
     );
 };
 
-const PoliceIslemleri = () => {
-    
+const PoliceIslemleri = ({ polFormData, setPolFormData }) => {
+
+    const generateRandomNumber = () => {
+        return Math.floor(1000000000 + Math.random() * 9000000000).toString();
+    };
+
+    React.useEffect(() => {
+        // Generate and set the random number when the component mounts
+        const randomNumber = generateRandomNumber();
+        setPolFormData(prevData => ({
+            ...prevData,
+            polID: randomNumber
+        }));
+    }, []);
+
     const navigate = useNavigate();
     
     const handleForwardClick = () => {
@@ -253,7 +270,7 @@ const PoliceIslemleri = () => {
                 }}
             >
                 <Typography color="rgb(26, 125, 189)" marginLeft={8} variant="body" fontWeight="bold">
-                    Teklif No: 0683119321
+                    Teklif No: {polFormData.polID}
                 </Typography>
 
                 <Typography color="rgb(26, 125, 189)" marginRight={8} variant="body" fontWeight="bold">

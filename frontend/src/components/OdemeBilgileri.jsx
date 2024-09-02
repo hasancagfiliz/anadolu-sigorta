@@ -4,15 +4,15 @@ import anadoluSigorta from '../assets/images/anadolusigorta2.png';
 import { useNavigate } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-const OdemeBilgileri = ({ odemeFormData, setOdemeFormData, userFormData }) => {
+const OdemeBilgileri = ({ odemeFormData, setOdemeFormData, userFormData, polFormData }) => {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-    
+
         if (name === 'expiry') {
             // Remove non-digit characters
             let numericValue = value.replace(/\D/g, '');
-    
+
             // Format the value as MM/YY
             let formattedValue = '';
             if (numericValue.length > 2) {
@@ -20,7 +20,7 @@ const OdemeBilgileri = ({ odemeFormData, setOdemeFormData, userFormData }) => {
             } else {
                 formattedValue = numericValue;
             }
-    
+
             setOdemeFormData({
                 ...odemeFormData,
                 [name]: formattedValue
@@ -28,7 +28,7 @@ const OdemeBilgileri = ({ odemeFormData, setOdemeFormData, userFormData }) => {
         } else if (name === 'kartnumarasi') {
             // Remove non-digit characters
             let numericValue = value.replace(/\D/g, '');
-    
+
             // Format the value based on length
             let formattedValue = '';
             if (numericValue.length === 16) {
@@ -38,14 +38,25 @@ const OdemeBilgileri = ({ odemeFormData, setOdemeFormData, userFormData }) => {
             } else {
                 formattedValue = numericValue;
             }
-    
+
+            // Set the formatted card number in the form state
             setOdemeFormData({
                 ...odemeFormData,
                 [name]: formattedValue
             });
-        }
 
-        else if (name === 'cvc') {
+            // Luhn validation logic
+            if (formattedValue.length === 19 || formattedValue.length === 17) { // 19 for XXXX-XXXX-XXXX-XXXX, 17 for XXXX-XXXXXX-XXXXX
+                if (!isValidLuhn(formattedValue)) {
+                    setError('Invalid card number.');
+                } else {
+                    setError('');
+                }
+            } else {
+                setError('');
+            }
+
+        } else if (name === 'cvc') {
             // Process value as needed, for example, remove non-digit characters
             const updatedValue = value.replace(/\D/g, '');
 
@@ -53,9 +64,7 @@ const OdemeBilgileri = ({ odemeFormData, setOdemeFormData, userFormData }) => {
                 ...odemeFormData,
                 [name]: updatedValue
             });
-        }
-
-        else {
+        } else {
             setOdemeFormData({
                 ...odemeFormData,
                 [name]: type === 'checkbox' ? checked : value
@@ -111,6 +120,32 @@ const OdemeBilgileri = ({ odemeFormData, setOdemeFormData, userFormData }) => {
                 });
         };
 
+        const handlePolSubmit = (e) => {
+
+            e.preventDefault();
+
+            const polPayload = {
+                Pol_Tip: polFormData.radioSelection,
+            };
+
+            fetch('http://localhost:5178/api/pol', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(polPayload),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    // Handle success
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    // Handle error
+                });
+        };
+
         const handleOdemeSubmit = (e) => {
 
             e.preventDefault();
@@ -142,6 +177,7 @@ const OdemeBilgileri = ({ odemeFormData, setOdemeFormData, userFormData }) => {
         };
 
         handleUserSubmit(e);
+        handlePolSubmit(e);
         handleOdemeSubmit(e);
 
         setOpen(true);
@@ -151,6 +187,29 @@ const OdemeBilgileri = ({ odemeFormData, setOdemeFormData, userFormData }) => {
         setOpen(false);
         // You can also add any additional logic here, like navigating to a different page
     };
+
+    function isValidLuhn(cardNumber) {
+        const sanitizedNumber = cardNumber.replace(/-/g, '');
+
+        let sum = 0;
+        let shouldDouble = false;
+
+        for (let i = sanitizedNumber.length - 1; i >= 0; i--) {
+            let digit = parseInt(sanitizedNumber[i]);
+
+            if (shouldDouble) {
+                digit *= 2;
+                if (digit > 9) digit -= 9;
+            }
+
+            sum += digit;
+            shouldDouble = !shouldDouble;
+        }
+
+        return sum % 10 === 0;
+    }
+
+    const [error, setError] = useState('');
 
     return (
         <Container
@@ -277,7 +336,7 @@ const OdemeBilgileri = ({ odemeFormData, setOdemeFormData, userFormData }) => {
                 }}
             >
                 <Typography color="rgb(26, 125, 189)" marginLeft={8} variant="body" fontWeight="bold">
-                    Teklif No: 0683119321
+                    Teklif No: {polFormData.polID}
                 </Typography>
 
                 <Typography color="rgb(26, 125, 189)" marginRight={8} variant="body" fontWeight="bold">
@@ -345,6 +404,8 @@ const OdemeBilgileri = ({ odemeFormData, setOdemeFormData, userFormData }) => {
                                 value={odemeFormData.kartnumarasi}
                                 onChange={handleChange}
                                 required
+                                error={!!error}
+                                helperText={error}
                                 inputProps={{ maxLength: 19,}}
                                 InputLabelProps={{
                                     shrink: true,

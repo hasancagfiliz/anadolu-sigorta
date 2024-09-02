@@ -6,7 +6,10 @@ namespace WebAPI.Models
     {
         [Key]
         [Required]
-        public string PolTip { get; set; }
+        public string Pol_ID { get; set; }
+
+        [Required]
+        public string Pol_Tip { get; set; }
 
     }
 }

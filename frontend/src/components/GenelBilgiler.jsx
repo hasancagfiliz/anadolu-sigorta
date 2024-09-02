@@ -9,6 +9,58 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
     const handleClick = () => {
         navigate('/2');
     }
+
+    /*  tc kimlik numarasının geçerli olup olmadığını kontrol eder
+ *  2015 Erhan BURHAN
+ *--------------------------------------------------------------------*/
+    function tcno_dogrula(tcno) {
+        try {
+            // Convert the input to a string, just in case
+            tcno = String(tcno);
+
+            // Ensure the first digit is not '0'
+            if (tcno.substring(0, 1) === '0') {
+                return false;
+            }
+
+            // Ensure the length is exactly 11
+            if (tcno.length !== 11) {
+                return false;
+            }
+
+            let ilkon_array = tcno.substr(0, 10).split('');
+            let ilkon_total = 0, hane_tek = 0, hane_cift = 0;
+
+            for (let i = 0; i < 9; ++i) {
+                let j = parseInt(ilkon_array[i], 10);
+                if (isNaN(j)) return false;
+
+                if (i & 1) { // Odd index (1-based: even)
+                    hane_cift += j;
+                } else { // Even index (1-based: odd)
+                    hane_tek += j;
+                }
+                ilkon_total += j;
+            }
+
+            // Control 1
+            if ((hane_tek * 7 - hane_cift) % 10 !== parseInt(tcno.substr(-2, 1), 10)) {
+                return false;
+            }
+
+            // Control 2
+            ilkon_total += parseInt(ilkon_array[9], 10);
+            if (ilkon_total % 10 !== parseInt(tcno.substr(-1), 10)) {
+                return false;
+            }
+
+            return true;
+        } catch (error) {
+            console.error("TC Kimlik validation error:", error);
+            return false;
+        }
+    }
+
     
 
     const ilKodlari = [...Array(81).keys()].map(num => String(num + 1).padStart(2, '0'));
@@ -170,22 +222,15 @@ const GenelBilgiler = ({ userFormData, setUserFormData }) => {
                                 shrink: true,
                             }}
                             error={
-                                userFormData.tcKimlik &&
-                                (
-                                    /[^0-9]/.test(userFormData.tcKimlik) ||
-                                    userFormData.tcKimlik.length !== 11
-                                )
+                                userFormData.tcKimlik && !tcno_dogrula(userFormData.tcKimlik)
                             }
                             helperText={
-                                userFormData.tcKimlik &&
-                                (
-                                    /[^0-9]/.test(userFormData.tcKimlik) ? 'Lütfen sadece rakam giriniz.' :
-                                            userFormData.tcKimlik.length !== 11 ? 'TC Kimlik numarası 11 haneli olmalıdır.' :
-                                                ''
-                                )
+                                userFormData.tcKimlik && !tcno_dogrula(userFormData.tcKimlik)
+                                    ? 'Geçersiz TC Kimlik numarası.'
+                                    : ''
                             }
-                            
                         />
+
                     </Grid>
 
                     <Grid item xs={12} md={3}>
